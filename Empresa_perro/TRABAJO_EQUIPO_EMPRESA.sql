@@ -445,7 +445,6 @@ FROM CANINO
 WHERE TAMAÑO IN ('Pequeño', 'Mediano')
 
 
------------------------------------------------------------
 ----CLIENTE
 --MUESTRA LOS APELLIDOS QUE TIENEN LA Z DE ULTIMO
 SELECT * FROM CLIENTE
@@ -464,7 +463,6 @@ SELECT * FROM CLIENTE
 WHERE NOMBRE LIKE('C%')
 
 
--------------------------------------------------------
 ---PET_HOTEL
 --MUESTRA LOS NOMBRES QUE TENGAN DE INICIAL LA P
 SELECT NOMBRE FROM PET_HOTEL
@@ -510,7 +508,7 @@ SELECT ID_RESERVA AS 'NÚMERO RESERVA',
 FROM RESERVA
 
 
-
+-------------------------------------------------------------------------------------
 --CONSULTAS CON OPERACIONES DE UNIÓN:
 --INNER JOIN:
 /*
@@ -654,6 +652,7 @@ RIGHT JOIN PET_HOTEL P ON R.ID_PET = P.ID_PET
 ORDER BY R.ID_RESERVA DESC
 
 
+-------------------------------------------------------------------------------------
 --SUBCONSULTAS
 /*
 1. SACAREMOS LOS PRECIOS MAYORES A LA MEDIA DE LA TABLA RESERVA 
@@ -676,6 +675,7 @@ SELECT NOMBRE AS 'NOMBRE HOTEL'
 FROM PET_HOTEL WHERE NOMBRE IN (SELECT NOMBRE FROM PET_HOTEL WHERE NOMBRE LIKE '%TAIL%')
 
 
+-------------------------------------------------------------------------------------
 --VARIABLES LOCALES CON CONSULTAS
 /*
 1. 
@@ -690,6 +690,7 @@ FROM PET_HOTEL WHERE NOMBRE IN (SELECT NOMBRE FROM PET_HOTEL WHERE NOMBRE LIKE '
 */
 
 
+-------------------------------------------------------------------------------------
 --FUNCIÓN ESCALAR
 /*
 1. 
@@ -704,12 +705,13 @@ FROM PET_HOTEL WHERE NOMBRE IN (SELECT NOMBRE FROM PET_HOTEL WHERE NOMBRE LIKE '
 */
 
 
-
+-------------------------------------------------------------------------------------
 --FUNCIÓN DE TABLAS
 /*
-1. 
+1. HARÉ UNA CONSULTA QUE ME DEVUELVA LOS CAMPOS IDENTIFICADOR DEL HOTEL DE PERROS, SU TELÉFONO Y DIRECCIÓN; ADEMÁS DE ESO,
+EL PRECIO DE LA RESERVA HACIENDO USO DE UNA FUNCIÓN DE TABLAs
 */
-CREATE FUNCTION RESERVA()
+CREATE FUNCTION P_RESERVA()
 RETURNS TABLE
 AS
 	RETURN(
@@ -718,9 +720,10 @@ AS
 			   P.DIRECCIÓN,
 			   R.PRECIO
 		FROM RESERVA R
-		JOIN PET_HOTEL P ON P.ID_PET=R.ID_PET
+		INNER JOIN PET_HOTEL P ON P.ID_PET=R.ID_PET
 		)
-		SELECT * FROM RRESERVA() WHERE PRECIO=100
+GO
+SELECT * FROM P_RESERVA() WHERE PRECIO=100
 
 /*
 2. 
@@ -753,6 +756,7 @@ AS
     SELECT * FROM CCANINO() WHERE TIPO_DE_RAZA='PASTOR ALEMÁN'
 
 
+-------------------------------------------------------------------------------------
 --FUNCIÓN CON VALORES DE LÍNEA
 /*
 1. 
