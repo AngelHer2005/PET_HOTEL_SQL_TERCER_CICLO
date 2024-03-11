@@ -29,6 +29,11 @@ DESCRIPCIÓN VARCHAR(MAX)
 )
 GO
 
+CREATE TABLE COLOR_CANINO(
+ID_COLOR CHAR(5) PRIMARY KEY CHECK(ID_COLOR LIKE 'CO[0-9][0-9][0-9]'),
+NOMBRE VARCHAR(50) NOT NULL UNIQUE
+)
+
 CREATE TABLE CANINO(
 ID_CANINO CHAR(5) PRIMARY KEY CHECK(ID_CANINO LIKE 'CA[0-9][0-9][0-9]'),
 NOMBRE VARCHAR(20) NOT NULL,
@@ -36,12 +41,12 @@ PESO INT NOT NULL,
 EDAD INT NOT NULL,
 TAMAÑO CHAR(10) NOT NULL,
 ID_TARJETA CHAR(4) NOT NULL FOREIGN KEY(ID_TARJETA) REFERENCES TARJETA(ID_TARJETA),
-ID_RAZA CHAR(4) NOT NULL FOREIGN KEY(ID_RAZA) REFERENCES RAZA(ID_RAZA)
+ID_RAZA CHAR(4) NOT NULL FOREIGN KEY(ID_RAZA) REFERENCES RAZA(ID_RAZA),
+ID_COLOR CHAR(5) NOT NULL FOREIGN KEY(ID_COLOR) REFERENCES COLOR_CANINO(ID_COLOR),
 )
 GO
 
 CREATE TABLE PERRO_VACUNADO(
-ID_PERRO_VAC CHAR(5) PRIMARY KEY CHECK(ID_PERRO_VAC LIKE 'PV[0-9][0-9][0-9]'),
 ID_CANINO CHAR(5) NOT NULL FOREIGN KEY(ID_CANINO) REFERENCES CANINO(ID_CANINO),
 ID_VACUNA CHAR(4) NOT NULL FOREIGN KEY(ID_VACUNA) REFERENCES VACUNA(ID_VACUNA)
 )
@@ -68,8 +73,7 @@ NOMBRE VARCHAR(50) NOT NULL UNIQUE
 GO
 
 CREATE TABLE HABITACION_CANINA(
-ID_HABI CHAR(4) PRIMARY KEY CHECK(ID_HABI LIKE 'H[0-9][0-9][0-9]'),
-NRO_HABI CHAR(3) NOT NULL UNIQUE,
+NRO_HABI CHAR(4) PRIMARY KEY CHECK(NRO_HABI LIKE 'H[0-9][0-9][0-9]'),
 ID_CANINO CHAR(5) NOT NULL FOREIGN KEY(ID_CANINO) REFERENCES CANINO(ID_CANINO),
 ID_PREMIUM CHAR(5) NULL FOREIGN KEY(ID_PREMIUM) REFERENCES HABITACION_PREMIUM(ID_PREMIUM),
 ID_ESTANDAR CHAR(4) NULL FOREIGN KEY(ID_ESTANDAR) REFERENCES HABITACION_ESTANDAR(ID_ESTANDAR),
@@ -87,13 +91,33 @@ DIRECCIÓN VARCHAR(40) NOT NULL UNIQUE
 )
 GO
 
+CREATE TABLE SERVICIO(
+ID_SERVICIO CHAR(4) PRIMARY KEY CHECK(ID_SERVICIO LIKE 'S[0-9][0-9][0-9]'),
+SERVICIO VARCHAR(MAX) NOT NULL,
+PRECIO MONEY NOT NULL
+)
+
 CREATE TABLE FACTURA(
 ID_FACTURA CHAR(4) PRIMARY KEY CHECK(ID_FACTURA LIKE 'F[0-9][0-9][0-9]'),
-SERVICIOS_AD VARCHAR(100) NOT NULL,
-COSTO_TOTAL MONEY NOT NULL,
-ID_CLIENTE CHAR(4) NOT NULL FOREIGN KEY(ID_CLIENTE) REFERENCES CLIENTE(ID_CLIENTE)
+PRECIO_SERVICIO MONEY NOT NULL,
+IMPUESTO MONEY NOT NULL,
+COSTO_TOTAL MONEY NOT NULL
 )
 GO
+
+CREATE TABLE BOLETA(
+ID_BOLETA CHAR(4) PRIMARY KEY CHECK(ID_BOLETA LIKE 'B[0-9][0-9][0-9]'),
+PRECIO_SERVICIO MONEY NOT NULL,
+IMPUESTO MONEY NOT NULL,
+TOTAL MONEY NOT NULL
+)
+GO
+
+CREATE TABLE SERVICIO_F_B(
+ID_SERVICIO CHAR(4) NOT NULL FOREIGN KEY(ID_SERVICIO) REFERENCES SERVICIO(ID_SERVICIO),
+ID_FACTURA CHAR(4) NULL FOREIGN KEY(ID_FACTURA) REFERENCES FACTURA(ID_FACTURA),
+ID_BOLETA CHAR(4) NULL FOREIGN KEY(ID_BOLETA) REFERENCES BOLETA(ID_BOLETA)
+)
 
 CREATE TABLE RESERVA(
 ID_RESERVA CHAR(4) PRIMARY KEY CHECK(ID_RESERVA LIKE 'R[0-9][0-9][0-9]'),
@@ -102,7 +126,15 @@ FECHA_SAL DATE NOT NULL,
 PRECIO MONEY NOT NULL,
 ID_CLIENTE CHAR(4) NOT NULL FOREIGN KEY(ID_CLIENTE) REFERENCES CLIENTE(ID_CLIENTE),
 ID_CANINO CHAR(5) NOT NULL FOREIGN KEY(ID_CANINO) REFERENCES CANINO(ID_CANINO),
-ID_PET CHAR(4) NOT NULL FOREIGN KEY(ID_PET) REFERENCES PET_HOTEL(ID_PET)
+ID_PET CHAR(4) NOT NULL FOREIGN KEY(ID_PET) REFERENCES PET_HOTEL(ID_PET),
+)
+GO
+
+CREATE TABLE COMPROBANTE(
+ID_CLIENTE CHAR(4) NOT NULL FOREIGN KEY(ID_CLIENTE) REFERENCES CLIENTE(ID_CLIENTE),
+ID_RESERVA CHAR(4) NOT NULL FOREIGN KEY(ID_RESERVA) REFERENCES RESERVA(ID_RESERVA),
+ID_FACTURA CHAR(4) NULL FOREIGN KEY(ID_FACTURA) REFERENCES FACTURA(ID_FACTURA),
+ID_BOLETA CHAR(4) NULL FOREIGN KEY(ID_BOLETA) REFERENCES BOLETA(ID_BOLETA)
 )
 GO
 
@@ -158,26 +190,48 @@ INSERT INTO TARJETA VALUES ('T001', 0, 1, 'Tratamiento antipulgas y desparasitac
 						   ('T020', 0, 1, 'Desparasitación mensual', 'Producto utilizado: FED')
 GO
 
-INSERT INTO CANINO VALUES ('CA001', 'Max', 25, 3, 'Mediano', 'T001', 'R001'),
-						  ('CA002', 'Bella', 15, 2, 'Pequeño', 'T002', 'R001'),
-						  ('CA003', 'Rocky', 30, 4, 'Grande', 'T003', 'R004'),
-						  ('CA004', 'Luna', 18, 1, 'Pequeño', 'T012', 'R003'),
-						  ('CA005', 'Coco', 22, 5, 'Mediano', 'T005', 'R004'),
-						  ('CA006', 'Lucky', 20, 3, 'Mediano', 'T006', 'R006'),
-						  ('CA007', 'Daisy', 12, 2, 'Pequeño', 'T007', 'R008'),
-						  ('CA008', 'Charlie', 28, 4, 'Grande', 'T008', 'R006'),
-						  ('CA009', 'Milo', 16, 1, 'Pequeño', 'T009', 'R015'),
-						  ('CA010', 'Ruby', 24, 5, 'Mediano', 'T010', 'R013'),
-						  ('CA011', 'Leo', 18, 3, 'Mediano', 'T011', 'R017'),
-						  ('CA012', 'Sophie', 14, 2, 'Pequeño', 'T012', 'R001'),
-						  ('CA013', 'Maximus', 32, 4, 'Grande', 'T013', 'R019'),
-						  ('CA014', 'Bentley', 19, 1, 'Pequeño', 'T014', 'R014'),
-						  ('CA015', 'Chloe', 26, 5, 'Mediano', 'T015', 'R018'),
-						  ('CA016', 'Rosie', 17, 2, 'Pequeño', 'T012', 'R018'),
-						  ('CA017', 'Zeus', 30, 4, 'Grande', 'T017', 'R014'),
-						  ('CA018', 'Mia', 14, 1, 'Pequeño', 'T018', 'R006'),
-						  ('CA019', 'Rocky Jr.', 22, 3, 'Mediano', 'T019', 'R008'),
-						  ('CA020', 'Lola', 19, 5, 'Mediano', 'T020', 'R002')
+INSERT INTO COLOR_CANINO VALUES('CO001', 'Negro'),
+							   ('CO002', 'Blanco'),
+							   ('CO003', 'Marrón'),
+							   ('CO004', 'Gris'),
+							   ('CO005', 'Rubio'),
+							   ('CO006', 'Crema'),
+							   ('CO007', 'Rojo'),
+							   ('CO008', 'Negro y crema'),
+							   ('CO009', 'Gris y crema'),
+							   ('CO010', 'Negro y fuego'),
+							   ('CO011', 'Negro y blanco'),
+							   ('CO012', 'Marrón y blanco'),
+							   ('CO013', 'Gris y blanco'),
+							   ('CO014', 'Negro y marrón'),
+							   ('CO015', 'Negro y gris'),
+							   ('CO016', 'Blanco y crema'),
+							   ('CO017', 'Marrón rojizo'),
+							   ('CO018', 'Negro, blanco y crema'),
+							   ('CO019', 'Marrón oscuro'),
+							   ('CO020', 'Blanco y negro')
+GO
+
+INSERT INTO CANINO VALUES ('CA001', 'Max', 25, 3, 'Mediano', 'T001', 'R001','CO006'),
+						  ('CA002', 'Bella', 15, 2, 'Pequeño', 'T002', 'R001','CO003'),
+						  ('CA003', 'Rocky', 30, 4, 'Grande', 'T003', 'R004','CO011'),
+						  ('CA004', 'Luna', 18, 1, 'Pequeño', 'T012', 'R003','CO006'),
+						  ('CA005', 'Coco', 22, 5, 'Mediano', 'T005', 'R004','CO016'),
+						  ('CA006', 'Lucky', 20, 3, 'Mediano', 'T006', 'R006','CO018'),
+						  ('CA007', 'Daisy', 12, 2, 'Pequeño', 'T007', 'R008', 'CO014'),
+						  ('CA008', 'Charlie', 28, 4, 'Grande', 'T008', 'R002','CO010'),
+						  ('CA009', 'Milo', 16, 1, 'Pequeño', 'T009', 'R014','CO011'),
+						  ('CA010', 'Ruby', 24, 5, 'Mediano', 'T010', 'R013','CO017'),
+						  ('CA011', 'Leo', 18, 3, 'Mediano', 'T011', 'R017','CO012'),
+						  ('CA012', 'Sophie', 14, 2, 'Pequeño', 'T012', 'R001','CO001'),
+						  ('CA013', 'Maximus', 32, 4, 'Grande', 'T013', 'R019','CO013'),
+						  ('CA014', 'Bentley', 19, 1, 'Pequeño', 'T014', 'R014','CO011'),
+						  ('CA015', 'Chloe', 26, 5, 'Mediano', 'T015', 'R018','CO008'),
+						  ('CA016', 'Rosie', 17, 2, 'Pequeño', 'T012', 'R018','CO008'),
+						  ('CA017', 'Zeus', 30, 4, 'Grande', 'T017', 'R003','CO006'),
+						  ('CA018', 'Mia', 14, 1, 'Pequeño', 'T018', 'R006','CO018'),
+						  ('CA019', 'Rocky Jr.', 22, 3, 'Mediano', 'T019', 'R008','CO014'),
+						  ('CA020', 'Lola', 19, 5, 'Mediano', 'T020', 'R002','CO010')
 GO
 
 INSERT INTO VACUNA VALUES ('V001', 'Ehrlichiosis Canina', 'Vacuna contra la ehrlichiosis en perros'),
@@ -202,26 +256,26 @@ INSERT INTO VACUNA VALUES ('V001', 'Ehrlichiosis Canina', 'Vacuna contra la ehrl
 						  ('V020', 'Refuerzo Babesiosis Canina', 'Vacuna contra la babesiosis en perros')
 GO
 
-INSERT INTO PERRO_VACUNADO VALUES('PV001','CA003','V020'),
-								 ('PV002','CA004','V003'),
-								 ('PV003','CA002','V001'),
-								 ('PV004','CA015','V005'),
-								 ('PV005','CA020','V003'),
-								 ('PV006','CA001','V013'),
-								 ('PV007','CA004','V001'),
-								 ('PV008','CA003','V001'),
-								 ('PV009','CA005','V003'),
-								 ('PV010','CA017','V003'),
-								 ('PV011','CA012','V004'),
-								 ('PV012','CA011','V010'),
-								 ('PV013','CA010','V011'),
-								 ('PV014','CA002','V020'),
-								 ('PV015','CA002','V016'),
-								 ('PV016','CA003','V015'),
-								 ('PV017','CA004','V007'),
-								 ('PV018','CA006','V003'),
-								 ('PV019','CA015','V011'),
-								 ('PV020','CA020','V009')
+INSERT INTO PERRO_VACUNADO VALUES('CA003','V020'),
+								 ('CA004','V003'),
+								 ('CA002','V001'),
+								 ('CA015','V005'),
+								 ('CA020','V003'),
+								 ('CA001','V013'),
+								 ('CA004','V001'),
+								 ('CA003','V001'),
+								 ('CA005','V003'),
+								 ('CA017','V003'),
+								 ('CA012','V004'),
+								 ('CA011','V010'),
+								 ('CA010','V011'),
+								 ('CA002','V020'),
+								 ('CA002','V016'),
+								 ('CA003','V015'),
+								 ('CA004','V007'),
+								 ('CA006','V003'),
+								 ('CA015','V011'),
+								 ('CA020','V009')
 GO
 
 INSERT INTO HABITACION_ESTANDAR VALUES('E001', 'Habitación estándar con cama individual y baño compartido'),
@@ -290,26 +344,26 @@ INSERT INTO PET_HOTEL VALUES('P001', 'Calle Paracas #23, Lima', '995241652', 'Ho
 							('P020', 'Calle Iquitos #987, Cusco', '911234567', 'Fuzzy Friends Retreat')
 GO
 
-INSERT INTO HABITACION_CANINA VALUES('H001', '101', 'CA001', 'PR001', NULL,'P004'),
-									('H002', '102', 'CA002', NULL, 'E002','P001'),
-									('H003', '103', 'CA003', NULL, 'E003', 'P003'),
-									('H004', '104', 'CA004', 'PR004', NULL,'P001'),
-									('H005', '105', 'CA005', NULL, 'E005','P004'),
-									('H006', '106', 'CA006', 'PR006', NULL,'P020'),
-									('H007', '107', 'CA007', 'PR007', NULL,'P015'),
-									('H008', '108', 'CA008', 'PR008', NULL,'P012'),
-									('H009', '109', 'CA009', NULL, 'E009','P018'),
-									('H010', '110', 'CA010', NULL, 'E010','P004'),
-									('H011', '111', 'CA011', NULL, 'E011','P015'),
-									('H012', '112', 'CA012', NULL, 'E012','P013'),
-									('H013', '113', 'CA013', NULL, 'E013','P012'),
-									('H014', '114', 'CA014', NULL, 'E014','P020'),
-									('H015', '115', 'CA015', 'PR015', NULL,'P003'),
-									('H016', '116', 'CA016', 'PR016', NULL,'P003'),
-									('H017', '117', 'CA017', 'PR017', NULL,'P007'),
-									('H018', '118', 'CA018', NULL, 'E018','P008'),
-									('H019', '119', 'CA019', 'PR019', NULL,'P019'),
-									('H020', '120', 'CA020', NULL, 'E020','P016')
+INSERT INTO HABITACION_CANINA VALUES('H001', 'CA001', 'PR001', NULL,'P004'),
+									('H002', 'CA002', NULL, 'E002','P001'),
+									('H003', 'CA003', NULL, 'E003', 'P003'),
+									('H004', 'CA004', 'PR004', NULL,'P001'),
+									('H005', 'CA005', NULL, 'E005','P004'),
+									('H006', 'CA006', 'PR006', NULL,'P020'),
+									('H007', 'CA007', 'PR007', NULL,'P015'),
+									('H008', 'CA008', 'PR008', NULL,'P012'),
+									('H009', 'CA009', NULL, 'E009','P018'),
+									('H010', 'CA010', NULL, 'E010','P004'),
+									('H011', 'CA011', NULL, 'E011','P015'),
+									('H012', 'CA012', NULL, 'E012','P013'),
+									('H013', 'CA013', NULL, 'E013','P012'),
+									('H014', 'CA014', NULL, 'E014','P020'),
+									('H015', 'CA015', 'PR015', NULL,'P003'),
+									('H016', 'CA016', 'PR016', NULL,'P003'),
+									('H017', 'CA017', 'PR017', NULL,'P007'),
+									('H018', 'CA018', NULL, 'E018','P008'),
+									('H019', 'CA019', 'PR019', NULL,'P019'),
+									('H020', 'CA020', NULL, 'E020','P016')
 GO
 
 INSERT INTO CLIENTE VALUES('C001', 'Juan', 'Pérez', '12345679', '987654321', 'Calle Ayacucho #324, Lima'),
@@ -334,27 +388,92 @@ INSERT INTO CLIENTE VALUES('C001', 'Juan', 'Pérez', '12345679', '987654321', 'C
 						  ('C020', 'Camila', 'Chávez', '23956789', '986243576', 'Calle Los Flamencos #789, Pueblo Libre')
 GO
 
-INSERT INTO FACTURA VALUES('F001', 'Servicio estándar', 80.00, 'C001'),
-						  ('F002', 'Servicio premium', 100.00,'C016'),
-						  ('F003', 'Servicio premium con tratamientos adicionales', 120.00,'C013'),
-						  ('F004', 'Servicio estándar con descuento', 75.00,'C015'),
-						  ('F005', 'Servicio premium con descuento', 110.00,'C012'),
-						  ('F006', 'Estancia estándar para perro pequeño', 40.00,'C002'),
-						  ('F007', 'Estancia estándar para perro mediano', 55.00,'C020'),
-						  ('F008', 'Estancia estándar para perro grande', 70.00,'C003'),
-						  ('F009', 'Suite premium para perro pequeño', 70.00,'C003'),
-						  ('F010', 'Suite premium para perro mediano', 90.00,'C009'),
-						  ('F011', 'Suite premium para perro grande', 100.00,'C010'),
-						  ('F012', 'Estancia estándar con baño y cepillado', 90.00,'C002'),
-						  ('F013', 'Suite premium con paseo adicional', 90.00,'C015'),
-						  ('F014', 'Estancia estándar con alimentación especial', 70.00,'C001'),
-						  ('F015', 'Suite premium con entrenamiento personalizado', 140.00,'C007'),
-						  ('F016', 'Estancia estándar con descuento para estancias largas', 65.00,'C018'),
-						  ('F017', 'Suite premium con descuento para clientes habituales', 75.00,'C019'),
-						  ('F018', 'Estancia estándar con juguetes adicionales', 85.00,'C004'),
-						  ('F019', 'Suite premium con servicio de spa para perros', 140.00,'C005'),
-						  ('F020', 'Estancia estándar con servicio de fotografía', 85.00,'C001')
+INSERT INTO SERVICIO VALUES ('S001', 'Paseo', 20.00),
+							('S002', 'Habitaciones individuales', 30.00),
+							('S003', 'Alimentación personalizada', 15.00),
+							('S004', 'Cuidado médico', 40.00),
+							('S005', 'Actividades recreativas', 25.00),
+							('S006', 'Piscina para perros', 35.00),
+							('S007', 'Entrenamiento básico', 30.00),
+							('S008', 'Salón de belleza', 25.00),
+							('S009', 'Masajes', 40.00),
+							('S010', 'Áreas de juego al aire libre', 20.00),
+							('S011', 'Servicio de transporte', 50.00),
+							('S012', 'Cámaras web', 20.00),
+							('S013', 'Entrega de informes diarios', 30.00),
+							('S014', 'Terapia de comportamiento', 45.00),
+							('S015', 'Fiestas de cumpleaños', 40.00),
+							('S016', 'Cuidado nocturno', 50.00),
+							('S017', 'Recreación acuática', 30.00),
+							('S018', 'Parque de juegos para perros', 35.00),
+							('S019', 'Clases de socialización', 25.00),
+							('S020', 'Servicios de fotografía', 45.00);
 GO
+
+INSERT INTO FACTURA VALUES('F001', 15.00, 16.20, 106.20),
+						  ('F002', 30.00, 23.40, 153.40),
+						  ('F003', 40.00, 21.24, 139.24),
+						  ('F004', 85.00, 33.30, 218.30),
+						  ('F005', 65.00, 30.60, 200.60),
+						  ('F006', 15.00, 24.30, 159.30),
+						  ('F007', 50.00, 27.00, 177.00),
+						  ('F008', 15.00, 24.30, 154.30),
+						  ('F009', 60.00, 21.60, 141.60),
+						  ('F010', 15.00, 12.60, 82.60),
+						  ('F011', 50.00, 18.00, 118.00),
+						  ('F012', 40.00, 28.80, 188.80),
+						  ('F013', 20.00, 20.70, 135.70),
+						  ('F014', 30.00, 27.00, 177.00),
+						  ('F015', 35.00, 17.10, 112.10),
+						  ('F016', 40.00, 18.00, 118.00),
+						  ('F017', 65.00, 29.34, 192.34),
+						  ('F018', 70.00, 34.20, 224.20),
+						  ('F019', 30.00, 27.00, 177.00),
+						  ('F020', 20.00, 17.64, 115.64)
+GO
+
+INSERT INTO BOLETA VALUES('B001', 45.00, 27.00, 177.00),
+						 ('B002', 90.00, 34.20, 224.20),
+						 ('B003', 85.00, 29.34, 192.34),
+						 ('B004', 70.00, 30.60, 200.60),
+						 ('B005', 35.00, 18.00, 118.00),
+						 ('B006', 35.00, 21.60, 141.60),
+						 ('B007', 40.00, 18.00, 118.00),
+						 ('B008', 70.00, 26.64, 174.64),
+						 ('B009', 150.00, 45.00, 295.00),
+						 ('B010', 50.00, 30.60, 200.60),
+						 ('B011', 50.00, 18.00, 118.00),
+						 ('B012', 40.00, 25.20, 165.20),
+						 ('B013', 25.00, 21.60, 141.60),
+						 ('B014', 15.00, 20.70, 135.70),
+						 ('B015', 35.00, 25.20, 165.20),
+						 ('B016', 65.00, 25.20, 165.20),
+						 ('B017', 200.00, 54.00, 354.00),
+						 ('B018', 85.00, 28.80, 188.80),
+						 ('B019', 100.00, 34.20, 224.20),
+						 ('B020', 20.00, 21.60, 141.60)
+GO
+
+INSERT INTO SERVICIO_F_B VALUES('S003', 'F004', NULL),
+							   ('S002', NULL, 'B002'),
+							   ('S005', NULL, 'B016'),
+							   ('S016', 'F004', NULL),
+							   ('S020', NULL,'B001'),
+							   ('S003', 'F001', NULL),
+							   ('S001', NULL,'B002'),
+							   ('S004', 'F003', NULL),
+							   ('S015', NULL, 'B002'),
+							   ('S002', NULL,'B004'),
+							   ('S001', NULL,'B020'),
+							   ('S016','F005', NULL),
+							   ('S001','F004', NULL),
+							   ('S004', NULL, 'B004'),
+							   ('S003', 'F005', NULL),
+							   ('S004', NULL, 'B016'),
+							   ('S011','F020', NULL),
+							   ('S020', NULL, 'B003'),
+							   ('S004', NULL,'B003')
+
 
 INSERT INTO RESERVA VALUES('R001', GETDATE(), GETDATE() + 7, 60.00, 'C001', 'CA001','P007'),
 						  ('R002', GETDATE(), GETDATE() + 10, 80.00, 'C002', 'CA002','P012'),
@@ -368,7 +487,7 @@ INSERT INTO RESERVA VALUES('R001', GETDATE(), GETDATE() + 7, 60.00, 'C001', 'CA0
 						  ('R010', GETDATE(), GETDATE() + 11, 85.00, 'C010', 'CA010','P016'),
 						  ('R011', GETDATE(), GETDATE() + 7, 95.00, 'C011', 'CA011','P006'),
                           ('R012', GETDATE(), GETDATE() + 14, 110.00, 'C012', 'CA012','P003'),
-						  ('R013', GETDATE(), GETDATE() + 8, 75.00, 'C013', 'CA013','P007'),
+						  ('R013', GETDATE(), GETDATE() + 8, 78.00, 'C013', 'CA013','P007'),
 						  ('R014', GETDATE(), GETDATE() + 10, 100.00, 'C014', 'CA014','P001'),
 						  ('R015', GETDATE(), GETDATE() + 5, 60.00, 'C015', 'CA015','P003'),
 						  ('R016', GETDATE(), GETDATE() + 13, 80.00, 'C016', 'CA016','P020'),
@@ -377,6 +496,28 @@ INSERT INTO RESERVA VALUES('R001', GETDATE(), GETDATE() + 7, 60.00, 'C001', 'CA0
 						  ('R019', GETDATE(), GETDATE() + 12, 70.00, 'C019', 'CA019','P017'),
 						  ('R020', GETDATE(), GETDATE() + 6, 105.00, 'C020', 'CA020','P007')
 GO
+
+INSERT INTO COMPROBANTE VALUES('C001','R003', NULL, 'B020'),
+							  ('C002','R013', NULL, 'B003'),
+							  ('C003','R020', NULL, 'B001'),
+							  ('C004','R013','F020', NULL),
+							  ('C005','R008', 'F006', NULL),
+							  ('C006','R003','F004', NULL),
+							  ('C007','R005', NULL, 'B016'),
+							  ('C008','R005', NULL, 'B018'),
+							  ('C009','R013','F003', NULL),
+							  ('C010','R003', NULL, 'B002'),
+							  ('C011','R020','F005', NULL),
+							  ('C012','R014', NULL, 'B004'),
+							  ('C013','R003','F002', NULL),
+							  ('C014','R005','F001', NULL),
+							  ('C015','R013', NULL, 'B008'),
+							  ('C016','R006',NULL, 'B019'),
+							  ('C017','R003','F007', NULL),
+							  ('C018','R008','F019', NULL),
+							  ('C019','R020', NULL, 'B015'),
+							  ('C020','R003', NULL, 'B014')
+GO					  
 
 INSERT INTO HISTORIAL VALUES('HI001', 'Historial médico del perro durante la estancia en el hotel.','R003'),
 							('HI002', 'Observaciones y tratamientos realizados al perro.','R007'),
@@ -619,7 +760,7 @@ SELECT H.NRO_HABI AS 'HABITACIÓN',
 	   H.ID_CANINO,
 	   H.ID_PET
 FROM HABITACION_CANINA H
-LEFT JOIN HABITACION_ESTANDAR E ON H.ID_HABI = E.ID_ESTANDAR
+LEFT JOIN HABITACION_ESTANDAR E ON H.NRO_HABI = E.ID_ESTANDAR
 ORDER BY ID_PET DESC
 
 /*
@@ -637,7 +778,7 @@ ORDER BY PESO ASC
 4. MOSTRAREMOS EL CODIGO DE HABITACIÓN, EL IDENTIFICADOR DEL CANINO Y 
    DE SU TARJETA
 */
-SELECT H.ID_HABI AS 'CODIGO DE HABITACIÓN',
+SELECT H.NRO_HABI AS 'CODIGO DE HABITACIÓN',
 	   C.ID_CANINO,
 	   C.ID_TARJETA
 FROM HABITACION_CANINA H
@@ -682,16 +823,26 @@ RIGHT JOIN RAZA R ON R.ID_RAZA = C.ID_RAZA
 ORDER BY C.NOMBRE DESC
 
 /*
-3. MOSTRAREMOS CADA FACTURA, SERVICIOS ADICIONALES Y COSTO TOTAL DE CADA 
-   FACTURA QUE TENGA UN CLIENTE AUNQUE HAYAN CLIENTES SIN FACTURA
+3. MOSTRAREMOS CADA FACTURA, SERVICIOS, IMPUESTO Y COSTO TOTAL DE CADA 
+   FACTURA QUE TENGA UN CLIENTE CON FACTURA Y LOS DEMÁS CLIENTES AUNQUE NO TENGAN
+   FACTURA
 */
-SELECT (C.NOMBRE+SPACE(1)+C.APELLIDO) AS 'NOMBRE Y APELLIDO CLIENTE',
-	   F.ID_FACTURA AS 'NÚMERO FACTURA',
-	   F.SERVICIOS_AD AS 'SERVICIOS ADICIONALES',
-	   CONCAT('S/. ',F.COSTO_TOTAL) AS 'COSTO TOTAL'
-FROM CLIENTE C
-RIGHT JOIN FACTURA F ON C.ID_CLIENTE = F.ID_CLIENTE
-ORDER BY F.ID_FACTURA
+SELECT (C.NOMBRE+SPACE(1)+C.APELLIDO) AS 'NOMBRE Y APELLIDO',
+	   S.SERVICIO,
+	   CASE
+		   WHEN COSTO_TOTAL IS NULL THEN NULL
+		   ELSE CONCAT('S/. ',F.IMPUESTO)
+	   END AS 'IGV',
+	   CASE
+		   WHEN COSTO_TOTAL IS NULL THEN NULL
+		   ELSE CONCAT('S/. ',COSTO_TOTAL)
+	   END AS 'COSTO TOTAL'
+	   FROM COMPROBANTE CM
+	   INNER JOIN FACTURA F ON CM.ID_FACTURA = F.ID_FACTURA
+	   INNER JOIN SERVICIO_F_B FB ON FB.ID_FACTURA = F.ID_FACTURA
+	   INNER JOIN SERVICIO S ON S.ID_SERVICIO = FB.ID_SERVICIO
+	   RIGHT JOIN CLIENTE C ON C.ID_CLIENTE = CM.ID_CLIENTE
+ORDER BY [COSTO TOTAL] DESC
 
 /*
 4. MOSTRAREMOS CUANTOS HISTORIALES TIENE CADA RESERVA Y COLOCAREMOS LAS RESERVAS
@@ -865,35 +1016,37 @@ CREATE FUNCTION R_CANINO()
 RETURNS TABLE
 AS
     RETURN (
-        SELECT R.ID_RAZA AS CODIGO, 
-               R.TIPO_RAZA AS TIPO_DE_RAZA,
+        SELECT R.TIPO_RAZA AS TIPO_DE_RAZA,
                C.NOMBRE,
                C.PESO AS PESO_KG 
         FROM CANINO C 
-        JOIN RAZA R ON C.ID_RAZA = R.ID_RAZA
+        INNER JOIN RAZA R ON C.ID_RAZA = R.ID_RAZA
     )
 GO
 SELECT * FROM R_CANINO() WHERE TIPO_DE_RAZA='PASTOR ALEMÁN'
 GO
 
 /*
-4. UNÍ LA TABLA CLIENTE CON LA TABLA FACTURA E HICE QUE BUSQUE EN LOS CAMPOS 
-   SERVICIOS_AD O NOMBRE_SERVICIOS SI TIENE 'Estancia estándar con juguetes adicionales'
+4. UNÍ LA TABLA CLIENTE CON LA TABLA FACTURA E HICE QUE BUSQUE EN EL CAMPO 
+   SERVICIO O NOMBRE_SERVICIO SI TIENE 'Cuidado médico'
 */
 CREATE FUNCTION T_CLIENTE()
 RETURNS TABLE
 AS
-	RETURN (SELECT F.ID_FACTURA CODIGO,
-		       F.SERVICIOS_AD NOMBRE_SERVICIOS,
-		       C.NOMBRE,
-	               C.APELLIDO,
-	               C.DNI,
-	               C.DIRECCIÓN
-	FROM CLIENTE C JOIN FACTURA F ON C.ID_CLIENTE= F.ID_CLIENTE)
+	RETURN (SELECT F.ID_FACTURA CÓDIGO,
+				   S.SERVICIO NOMBRE_SERVICIO,
+				   CONCAT(C.NOMBRE, SPACE(1), C.APELLIDO) AS 'NOMBRE APELLIDO CLIENTE',
+				   C.DNI,
+				   C.DIRECCIÓN
+			FROM CLIENTE C 
+			INNER JOIN COMPROBANTE CM ON CM.ID_CLIENTE = C.ID_CLIENTE
+			INNER JOIN FACTURA F ON F.ID_FACTURA = CM.ID_FACTURA
+			INNER JOIN SERVICIO_F_B FB ON FB.ID_FACTURA = F.ID_FACTURA
+			INNER JOIN SERVICIO S ON S.ID_SERVICIO = FB.ID_SERVICIO)
 GO
-SELECT * FROM T_CLIENTE() WHERE NOMBRE_SERVICIOS = 'Estancia estándar con juguetes adicionales'
+SELECT * FROM T_CLIENTE() WHERE NOMBRE_SERVICIO = 'Cuidado médico'
 GO
-	
+
 /*
 5. UNÍ LA TABLA CANINO CON LA TABLA RESERVA Y PUSE QUE ME BUSQUE EN LOS CAMPOS
    PRECIO SI TIENE REGISTROS CON PRECIO S/. 110.00
@@ -972,31 +1125,8 @@ AS
 	END
 GO
 SELECT * FROM DBO.CLIENTES()
-GO
-	
-/*
-4.- RETORNAR LAS TARJETAS REGISTRADAS EN LA BBDD 
-*/
-CREATE FUNCTION DBO.TARJETAS()
-RETURNS @TABLA TABLE(
-	ID_TARJETA VARCHAR(8),
-	ANTIPULGAS BIT,
-	DESPARASITACIÓN BIT,
-	INDICACIÓN VARCHAR(50)
-	)
-AS
-	BEGIN
-		INSERT INTO @TABLA SELECT ID_TARJETA,
-					  ANTIPULGAS,
-					  DESPARASITACIÓN,
-					  INDICACIÓN   
-		FROM TARJETA
-		RETURN
-	END
-GO
-SELECT * FROM DBO.TARJETAS()
-GO
-	
+
+
 -------------------------------------------------------------------------------------
 --VIEWS
 --1. MOSTRAR QUE CANINO TIENE DE 4 A MÁS AÑOS 
@@ -1013,10 +1143,14 @@ FROM            dbo.PET_HOTEL WHERE NOMBRE LIKE 'P%'
 
 --4. UNÍ LA TABLA FACTURA Y CLIENTE; DESPUÉS DE ESO, FILTRÉ LAS TABLAS CON EL CAMPO COSTO TOTAL
 --   PARA QUE MUESTRE LOS QUE SON MAYORES O IGUALES A S/. 100.00
-SELECT        dbo.FACTURA.ID_FACTURA, dbo.FACTURA.SERVICIOS_AD, dbo.FACTURA.COSTO_TOTAL, 
-			  dbo.CLIENTE.NOMBRE, dbo.CLIENTE.APELLIDO, dbo.CLIENTE.DNI
-FROM          dbo.FACTURA INNER JOIN
-              dbo.CLIENTE ON dbo.FACTURA.ID_CLIENTE = dbo.CLIENTE.ID_CLIENTE WHERE COSTO_TOTAL>=100.00
+SELECT TOP (100) PERCENT dbo.FACTURA.ID_FACTURA, dbo.SERVICIO.SERVICIO, dbo.FACTURA.COSTO_TOTAL
+FROM   dbo.CLIENTE INNER JOIN
+             dbo.COMPROBANTE ON dbo.CLIENTE.ID_CLIENTE = dbo.COMPROBANTE.ID_CLIENTE INNER JOIN
+             dbo.FACTURA ON dbo.COMPROBANTE.ID_FACTURA = dbo.FACTURA.ID_FACTURA INNER JOIN
+             dbo.SERVICIO_F_B ON dbo.FACTURA.ID_FACTURA = dbo.SERVICIO_F_B.ID_FACTURA INNER JOIN
+             dbo.SERVICIO ON dbo.SERVICIO_F_B.ID_SERVICIO = dbo.SERVICIO.ID_SERVICIO
+WHERE (dbo.FACTURA.COSTO_TOTAL >= 100)
+ORDER BY dbo.FACTURA.COSTO_TOTAL
 
 
 --ACCEDEMOS A LOS DIAGRAMAS DE BASE DE DATOS CON EL SIGUIENTE CÓDIGO:
