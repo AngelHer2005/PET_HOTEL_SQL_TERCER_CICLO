@@ -1,5 +1,4 @@
 # PET_HOTEL_SQL_TERCER_CICLO
 Este repositorio es una base de datos construida desde el inicio; es decir, lleva un modelo conceptual, lógico y la base de datos en sí sobre un hotel de perros.
 
-<img src="" width=250px>
 ![Perro](https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1xw:0.74975xh;center,top&resize=1200:*){: style="width: 250px; height: 250px; display: block; margin: 0 auto;"}
