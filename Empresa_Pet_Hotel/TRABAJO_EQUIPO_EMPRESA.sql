@@ -9,23 +9,23 @@ GO
 CREATE TABLE RAZA(
 ID_RAZA CHAR(4) PRIMARY KEY CHECK(ID_RAZA LIKE 'R[0-9][0-9][0-9]'),
 TIPO_RAZA VARCHAR(20) NOT NULL UNIQUE,
-DESCRIPCI”N VARCHAR(MAX) NOT NULL
+DESCRIPCI√ìN VARCHAR(MAX) NOT NULL
 )
 GO
 
 CREATE TABLE TARJETA(
 ID_TARJETA CHAR(4) PRIMARY KEY CHECK(ID_TARJETA LIKE 'T[0-9][0-9][0-9]'),
 ANTIPULGAS BIT NOT NULL CHECK(ANTIPULGAS IN (0, 1)),
-DESPARASITACI”N BIT NOT NULL CHECK(DESPARASITACI”N IN (0, 1)),
-INDICACI”N VARCHAR(50),
-DESCRIPCI”N VARCHAR(MAX)
+DESPARASITACI√ìN BIT NOT NULL CHECK(DESPARASITACI√ìN IN (0, 1)),
+INDICACI√ìN VARCHAR(50),
+DESCRIPCI√ìN VARCHAR(MAX)
 )
 GO
 
 CREATE TABLE VACUNA(
 ID_VACUNA CHAR(4) PRIMARY KEY CHECK(ID_VACUNA LIKE 'V[0-9][0-9][0-9]'),
 TIPO_VACUNA VARCHAR(40) NOT NULL UNIQUE,
-DESCRIPCI”N VARCHAR(MAX)
+DESCRIPCION VARCHAR(MAX)
 )
 GO
 
@@ -39,14 +39,14 @@ ID_CANINO CHAR(5) PRIMARY KEY CHECK(ID_CANINO LIKE 'CA[0-9][0-9][0-9]'),
 NOMBRE VARCHAR(20) NOT NULL,
 PESO INT NOT NULL,
 EDAD INT NOT NULL,
-TAMA—O CHAR(10) NOT NULL,
+TAMA√ëO CHAR(10) NOT NULL,
 ID_TARJETA CHAR(4) NOT NULL FOREIGN KEY(ID_TARJETA) REFERENCES TARJETA(ID_TARJETA),
 ID_RAZA CHAR(4) NOT NULL FOREIGN KEY(ID_RAZA) REFERENCES RAZA(ID_RAZA),
 ID_COLOR CHAR(5) NOT NULL FOREIGN KEY(ID_COLOR) REFERENCES COLOR_CANINO(ID_COLOR),
 )
 GO
 
-CREATE TABLE PERRO_VACUNADO(
+CREATE TABLE VAC_CANINO(
 ID_CANINO CHAR(5) NOT NULL FOREIGN KEY(ID_CANINO) REFERENCES CANINO(ID_CANINO),
 ID_VACUNA CHAR(4) NOT NULL FOREIGN KEY(ID_VACUNA) REFERENCES VACUNA(ID_VACUNA)
 )
@@ -54,20 +54,20 @@ GO
 
 CREATE TABLE HABITACION_ESTANDAR(
 ID_ESTANDAR CHAR(4) PRIMARY KEY CHECK(ID_ESTANDAR LIKE 'E[0-9][0-9][0-9]'),
-DESCRIPCI”N VARCHAR(MAX) NULL
+DESCRIPCI√ìN VARCHAR(MAX) NULL
 )
 GO
 
 CREATE TABLE HABITACION_PREMIUM(
 ID_PREMIUM CHAR(5) PRIMARY KEY CHECK(ID_PREMIUM LIKE 'PR[0-9][0-9][0-9]'),
-DESCRIPCI”N VARCHAR(MAX) NULL
+DESCRIPCI√ìN VARCHAR(MAX) NULL
 )
 GO
 
 CREATE TABLE PET_HOTEL(
 ID_PET CHAR(4) PRIMARY KEY CHECK(ID_PET LIKE 'P[0-9][0-9][0-9]'),
-DIRECCI”N VARCHAR(40) NOT NULL,
-TEL…FONO CHAR(9) NOT NULL,
+DIRECCI√ìN VARCHAR(40) NOT NULL,
+TEL√âFONO CHAR(9) NOT NULL,
 NOMBRE VARCHAR(50) NOT NULL UNIQUE
 )
 GO
@@ -86,8 +86,8 @@ ID_CLIENTE CHAR(4) PRIMARY KEY CHECK(ID_CLIENTE LIKE 'C[0-9][0-9][0-9]'),
 NOMBRE VARCHAR(20) NOT NULL,
 APELLIDO VARCHAR(20) NOT NULL,
 DNI CHAR(8) NOT NULL UNIQUE,
-TEL…FONO CHAR(9) NOT NULL UNIQUE,
-DIRECCI”N VARCHAR(40) NOT NULL UNIQUE
+TEL√âFONO CHAR(9) NOT NULL UNIQUE,
+DIRECCI√ìN VARCHAR(40) NOT NULL UNIQUE
 )
 GO
 
@@ -140,59 +140,59 @@ GO
 
 CREATE TABLE HISTORIAL(
 ID_HISTORIAL CHAR(5) PRIMARY KEY CHECK(ID_HISTORIAL LIKE 'HI[0-9][0-9][0-9]'),
-DESCRIPCI”N VARCHAR(MAX),
+DESCRIPCI√ìN VARCHAR(MAX),
 ID_RESERVA CHAR(4) NOT NULL FOREIGN KEY(ID_RESERVA) REFERENCES RESERVA(ID_RESERVA)
 )
 GO
 
 --INSERTAMOS 5 REGISTROS EN CADA CAMPO DE CADA TABLA:
 INSERT INTO RAZA VALUES ('R001', 'Labrador Retriever', 'Amigable y extrovertido'),
-						('R002', 'Pastor Alem·n', 'Inteligente y vers·til'),
+						('R002', 'Pastor Alem√°n', 'Inteligente y vers√°til'),
 						('R003', 'Golden Retriever', 'Amigable y tolerante'),
-						('R004', 'Bulldog', 'DÛcil y decidido'),
+						('R004', 'Bulldog', 'D√≥cil y decidido'),
 						('R005', 'POODLE', 'Inteligente y activo'),
 						('R006', 'Beagle', 'Alegre y amigable'),
-						('R007', 'Siberian Husky', 'EnergÈtico y sociable'),
+						('R007', 'Siberian Husky', 'Energ√©tico y sociable'),
 						('R008', 'Dachshund', 'Valiente y curioso'),
 						('R009', 'Boxer', 'Fuerte y leal'),
-						('R010', 'Shih Tzu', 'Afable y juguetÛn'),
-						('R011', 'Chihuahua', 'PequeÒo pero valiente'),
+						('R010', 'Shih Tzu', 'Afable y juguet√≥n'),
+						('R011', 'Chihuahua', 'Peque√±o pero valiente'),
 						('R012', 'Doberman', 'Alerta y valiente'),
-						('R013', 'Cocker Spaniel', 'Afectuoso y juguetÛn'),
+						('R013', 'Cocker Spaniel', 'Afectuoso y juguet√≥n'),
 						('R014', 'Great Dane', 'Gentil y amistoso'),
 						('R015', 'Pomeranian', 'Vivaz y extrovertido'),
 						('R016', 'Shiba Inu', 'Leal y alerta'),
-						('R017', 'BichÛn FrisÈ', 'Alegre y juguetÛn'),
+						('R017', 'Bich√≥n Fris√©', 'Alegre y juguet√≥n'),
 						('R018', 'Pug', 'Encantador y tranquilo'),
-						('R019', 'Husky Siberiano', 'EnergÈtico y amigable'),
-						('R020', 'Maltese', 'Carism·tico y cariÒoso')
+						('R019', 'Husky Siberiano', 'Energ√©tico y amigable'),
+						('R020', 'Maltese', 'Carism√°tico y cari√±oso')
 GO
 
-INSERT INTO TARJETA VALUES ('T001', 0, 1, 'Tratamiento antipulgas y desparasitaciÛn mensual', 'Producto utilizado: XWY'),
-						   ('T002', 0, 1, 'DesparasitaciÛn mensual', 'Producto utilizado: HCC'),
+INSERT INTO TARJETA VALUES ('T001', 0, 1, 'Tratamiento antipulgas y desparasitaci√≥n mensual', 'Producto utilizado: XWY'),
+						   ('T002', 0, 1, 'Desparasitaci√≥n mensual', 'Producto utilizado: HCC'),
 						   ('T003', 1, 0, 'Tratamiento antipulgas mensual', 'Producto utilizado: DPI'),
 						   ('T004', 0, 0, 'Sin tratamiento', 'No se aplicaron tratamientos este mes'),
-						   ('T005', 1, 1, 'Tratamiento antipulgas y desparasitaciÛn quincenal', 'Producto utilizado: LNA'),
+						   ('T005', 1, 1, 'Tratamiento antipulgas y desparasitaci√≥n quincenal', 'Producto utilizado: LNA'),
 						   ('T006', 1, 0, 'Tratamiento antipulgas mensual', 'Producto utilizado: XWZ'),
-						   ('T007', 0, 1, 'DesparasitaciÛn mensual', 'Producto utilizado: AAE'),
-						   ('T008', 1, 1, 'Tratamiento antipulgas y desparasitaciÛn mensual', 'Producto utilizado: DDP'),
+						   ('T007', 0, 1, 'Desparasitaci√≥n mensual', 'Producto utilizado: AAE'),
+						   ('T008', 1, 1, 'Tratamiento antipulgas y desparasitaci√≥n mensual', 'Producto utilizado: DDP'),
 						   ('T009', 0, 0, 'Sin tratamiento', 'No se aplicaron tratamientos este mes'),
-						   ('T010', 1, 1, 'Tratamiento antipulgas y desparasitaciÛn quincenal', 'Producto utilizado: GPT'),
-						   ('T011', 0, 1, 'DesparasitaciÛn mensual', 'Producto utilizado: JPP'),
+						   ('T010', 1, 1, 'Tratamiento antipulgas y desparasitaci√≥n quincenal', 'Producto utilizado: GPT'),
+						   ('T011', 0, 1, 'Desparasitaci√≥n mensual', 'Producto utilizado: JPP'),
 						   ('T012', 1, 0, 'Tratamiento antipulgas mensual', 'Producto utilizado: MPO'),
 						   ('T013', 0, 0, 'Sin tratamiento', 'No se aplicaron tratamientos este mes'),
-						   ('T014', 1, 1, 'Tratamiento antipulgas y desparasitaciÛn quincenal', 'Producto utilizado: PQS'),
-						   ('T015', 0, 1, 'DesparasitaciÛn mensual', 'Producto utilizado: SYU'),
-						   ('T016', 0, 1, 'DesparasitaciÛn mensual', 'Producto utilizado: UJW'),
+						   ('T014', 1, 1, 'Tratamiento antipulgas y desparasitaci√≥n quincenal', 'Producto utilizado: PQS'),
+						   ('T015', 0, 1, 'Desparasitaci√≥n mensual', 'Producto utilizado: SYU'),
+						   ('T016', 0, 1, 'Desparasitaci√≥n mensual', 'Producto utilizado: UJW'),
 						   ('T017', 1, 0, 'Tratamiento antipulgas mensual', 'Producto utilizado: XAZ'),
 						   ('T018', 0, 0, 'Sin tratamiento', 'No se aplicaron tratamientos este mes'),
-						   ('T019', 1, 1, 'Tratamiento antipulgas y desparasitaciÛn mensual', 'Producto utilizado: ACB'),
-						   ('T020', 0, 1, 'DesparasitaciÛn mensual', 'Producto utilizado: FED')
+						   ('T019', 1, 1, 'Tratamiento antipulgas y desparasitaci√≥n mensual', 'Producto utilizado: ACB'),
+						   ('T020', 0, 1, 'Desparasitaci√≥n mensual', 'Producto utilizado: FED')
 GO
 
 INSERT INTO COLOR_CANINO VALUES('CO001', 'Negro'),
 							   ('CO002', 'Blanco'),
-							   ('CO003', 'MarrÛn'),
+							   ('CO003', 'Marr√≥n'),
 							   ('CO004', 'Gris'),
 							   ('CO005', 'Rubio'),
 							   ('CO006', 'Crema'),
@@ -201,35 +201,35 @@ INSERT INTO COLOR_CANINO VALUES('CO001', 'Negro'),
 							   ('CO009', 'Gris y crema'),
 							   ('CO010', 'Negro y fuego'),
 							   ('CO011', 'Negro y blanco'),
-							   ('CO012', 'MarrÛn y blanco'),
+							   ('CO012', 'Marr√≥n y blanco'),
 							   ('CO013', 'Gris y blanco'),
-							   ('CO014', 'Negro y marrÛn'),
+							   ('CO014', 'Negro y marr√≥n'),
 							   ('CO015', 'Negro y gris'),
 							   ('CO016', 'Blanco y crema'),
-							   ('CO017', 'MarrÛn rojizo'),
+							   ('CO017', 'Marr√≥n rojizo'),
 							   ('CO018', 'Negro, blanco y crema'),
-							   ('CO019', 'MarrÛn oscuro'),
+							   ('CO019', 'Marr√≥n oscuro'),
 							   ('CO020', 'Blanco y negro')
 GO
 
 INSERT INTO CANINO VALUES ('CA001', 'Max', 25, 3, 'Mediano', 'T001', 'R001','CO006'),
-						  ('CA002', 'Bella', 15, 2, 'PequeÒo', 'T002', 'R001','CO003'),
+						  ('CA002', 'Bella', 15, 2, 'Peque√±o', 'T002', 'R001','CO003'),
 						  ('CA003', 'Rocky', 30, 4, 'Grande', 'T003', 'R004','CO011'),
-						  ('CA004', 'Luna', 18, 1, 'PequeÒo', 'T012', 'R003','CO006'),
+						  ('CA004', 'Luna', 18, 1, 'Peque√±o', 'T012', 'R003','CO006'),
 						  ('CA005', 'Coco', 22, 5, 'Mediano', 'T005', 'R004','CO016'),
 						  ('CA006', 'Lucky', 20, 3, 'Mediano', 'T006', 'R006','CO018'),
-						  ('CA007', 'Daisy', 12, 2, 'PequeÒo', 'T007', 'R008', 'CO014'),
+						  ('CA007', 'Daisy', 12, 2, 'Peque√±o', 'T007', 'R008', 'CO014'),
 						  ('CA008', 'Charlie', 28, 4, 'Grande', 'T008', 'R002','CO010'),
-						  ('CA009', 'Milo', 16, 1, 'PequeÒo', 'T009', 'R014','CO011'),
+						  ('CA009', 'Milo', 16, 1, 'Peque√±o', 'T009', 'R014','CO011'),
 						  ('CA010', 'Ruby', 24, 5, 'Mediano', 'T010', 'R013','CO017'),
 						  ('CA011', 'Leo', 18, 3, 'Mediano', 'T011', 'R017','CO012'),
-						  ('CA012', 'Sophie', 14, 2, 'PequeÒo', 'T012', 'R001','CO001'),
+						  ('CA012', 'Sophie', 14, 2, 'Peque√±o', 'T012', 'R001','CO001'),
 						  ('CA013', 'Maximus', 32, 4, 'Grande', 'T013', 'R019','CO013'),
-						  ('CA014', 'Bentley', 19, 1, 'PequeÒo', 'T014', 'R014','CO011'),
+						  ('CA014', 'Bentley', 19, 1, 'Peque√±o', 'T014', 'R014','CO011'),
 						  ('CA015', 'Chloe', 26, 5, 'Mediano', 'T015', 'R018','CO008'),
-						  ('CA016', 'Rosie', 17, 2, 'PequeÒo', 'T012', 'R018','CO008'),
+						  ('CA016', 'Rosie', 17, 2, 'Peque√±o', 'T012', 'R018','CO008'),
 						  ('CA017', 'Zeus', 30, 4, 'Grande', 'T017', 'R003','CO006'),
-						  ('CA018', 'Mia', 14, 1, 'PequeÒo', 'T018', 'R006','CO018'),
+						  ('CA018', 'Mia', 14, 1, 'Peque√±o', 'T018', 'R006','CO018'),
 						  ('CA019', 'Rocky Jr.', 22, 3, 'Mediano', 'T019', 'R008','CO014'),
 						  ('CA020', 'Lola', 19, 5, 'Mediano', 'T020', 'R002','CO010')
 GO
@@ -240,15 +240,15 @@ INSERT INTO VACUNA VALUES ('V001', 'Ehrlichiosis Canina', 'Vacuna contra la ehrl
 						  ('V004', 'Anaplasmosis Canina', 'Vacuna contra la anaplasmosis en perros'),
 						  ('V005', 'Borreliosis Canina', 'Vacuna contra la borreliosis en perros'),
 						  ('V006', 'Tos de las Perreras', 'Vacuna contra la tos de las perreras en perros'),
-						  ('V007', 'Dermatitis AtÛpica', 'Vacuna contra la dermatitis atÛpica en perros'),
-						  ('V008', 'TÈtanos Canino', 'Vacuna contra el tÈtanos en perros'),
+						  ('V007', 'Dermatitis At√≥pica', 'Vacuna contra la dermatitis at√≥pica en perros'),
+						  ('V008', 'T√©tanos Canino', 'Vacuna contra el t√©tanos en perros'),
 						  ('V009', 'Hepatitis Canina', 'Vacuna contra la hepatitis canina'),
 						  ('V010', 'Leptospirosis Canina', 'Vacuna contra la leptospirosis en perros'),
 						  ('V011', 'Rabia', 'Vacuna contra la rabia en perros'),
 						  ('V012', 'Moquillo Canino', 'Vacuna contra el moquillo en perros'),
 						  ('V013', 'Parvovirosis Canina', 'Vacuna contra la parvovirosis en perros'),
 						  ('V014', 'Influenza Canina', 'Vacuna contra la influenza canina'),
-						  ('V015', 'Coronavirus EntÈrico', 'Vacuna contra el coronavirus entÈrico en perros'),
+						  ('V015', 'Coronavirus Ent√©rico', 'Vacuna contra el coronavirus ent√©rico en perros'),
 						  ('V016', 'Lyme Canino', 'Vacuna contra la enfermedad de Lyme en perros'),
 						  ('V017', 'Giardiasis Canina', 'Vacuna contra la giardiasis en perros'),
 						  ('V018', 'Parainfluenza Canina', 'Vacuna contra la parainfluenza canina'),
@@ -256,7 +256,7 @@ INSERT INTO VACUNA VALUES ('V001', 'Ehrlichiosis Canina', 'Vacuna contra la ehrl
 						  ('V020', 'Refuerzo Babesiosis Canina', 'Vacuna contra la babesiosis en perros')
 GO
 
-INSERT INTO PERRO_VACUNADO VALUES('CA003','V020'),
+INSERT INTO VAC_CANINO VALUES('CA003','V020'),
 								 ('CA004','V003'),
 								 ('CA002','V001'),
 								 ('CA015','V005'),
@@ -278,55 +278,55 @@ INSERT INTO PERRO_VACUNADO VALUES('CA003','V020'),
 								 ('CA020','V009')
 GO
 
-INSERT INTO HABITACION_ESTANDAR VALUES('E001', 'HabitaciÛn est·ndar con cama individual y baÒo compartido'),
-                                      ('E002', 'HabitaciÛn est·ndar con cama doble y baÒo privado'),
-                                      ('E003', 'HabitaciÛn est·ndar con dos camas individuales y vistas al jardÌn'),
-                                      ('E004', 'HabitaciÛn est·ndar con cama queen-size y balcÛn'),
-                                      ('E005', 'HabitaciÛn est·ndar con dos camas dobles y desayuno incluido'),
-                                      ('E006', 'HabitaciÛn est·ndar con cama king-size y minibar'),
-                                      ('E007', 'HabitaciÛn est·ndar con cama individual y escritorio'),
-                                      ('E008', 'HabitaciÛn est·ndar con dos camas individuales y TV de pantalla plana'),
-                                      ('E009', 'HabitaciÛn est·ndar con cama doble y sof·-cama'),
-                                      ('E010', 'HabitaciÛn est·ndar con cama queen-size y acceso a la piscina'),
-                                      ('E011', 'HabitaciÛn est·ndar con dos camas dobles y servicio de habitaciones'),
-                                      ('E012', 'HabitaciÛn est·ndar con cama king-size y ·rea de estar'),
-                                      ('E013', 'HabitaciÛn est·ndar con cama individual y vistas panor·micas'),
-                                      ('E014', 'HabitaciÛn est·ndar con cama doble y jacuzzi'),
-                                      ('E015', 'HabitaciÛn est·ndar con dos camas individuales y baÒera de hidromasaje'),
-                                      ('E016', 'HabitaciÛn est·ndar con cama queen-size y gimnasio privado'),
-                                      ('E017', 'HabitaciÛn est·ndar con dos camas dobles y acceso a la terraza'),
-                                      ('E018', 'HabitaciÛn est·ndar con cama king-size y desayuno en la cama'),
-                                      ('E019', 'HabitaciÛn est·ndar con cama individual y servicio de lavanderÌa'),
-                                      ('E020', 'HabitaciÛn est·ndar con dos camas individuales y cocina americana')
+INSERT INTO HABITACION_ESTANDAR VALUES('E001', 'Habitaci√≥n est√°ndar con cama individual y ba√±o compartido'),
+                                      ('E002', 'Habitaci√≥n est√°ndar con cama doble y ba√±o privado'),
+                                      ('E003', 'Habitaci√≥n est√°ndar con dos camas individuales y vistas al jard√≠n'),
+                                      ('E004', 'Habitaci√≥n est√°ndar con cama queen-size y balc√≥n'),
+                                      ('E005', 'Habitaci√≥n est√°ndar con dos camas dobles y desayuno incluido'),
+                                      ('E006', 'Habitaci√≥n est√°ndar con cama king-size y minibar'),
+                                      ('E007', 'Habitaci√≥n est√°ndar con cama individual y escritorio'),
+                                      ('E008', 'Habitaci√≥n est√°ndar con dos camas individuales y TV de pantalla plana'),
+                                      ('E009', 'Habitaci√≥n est√°ndar con cama doble y sof√°-cama'),
+                                      ('E010', 'Habitaci√≥n est√°ndar con cama queen-size y acceso a la piscina'),
+                                      ('E011', 'Habitaci√≥n est√°ndar con dos camas dobles y servicio de habitaciones'),
+                                      ('E012', 'Habitaci√≥n est√°ndar con cama king-size y √°rea de estar'),
+                                      ('E013', 'Habitaci√≥n est√°ndar con cama individual y vistas panor√°micas'),
+                                      ('E014', 'Habitaci√≥n est√°ndar con cama doble y jacuzzi'),
+                                      ('E015', 'Habitaci√≥n est√°ndar con dos camas individuales y ba√±era de hidromasaje'),
+                                      ('E016', 'Habitaci√≥n est√°ndar con cama queen-size y gimnasio privado'),
+                                      ('E017', 'Habitaci√≥n est√°ndar con dos camas dobles y acceso a la terraza'),
+                                      ('E018', 'Habitaci√≥n est√°ndar con cama king-size y desayuno en la cama'),
+                                      ('E019', 'Habitaci√≥n est√°ndar con cama individual y servicio de lavander√≠a'),
+                                      ('E020', 'Habitaci√≥n est√°ndar con dos camas individuales y cocina americana')
 GO
 
-INSERT INTO HABITACION_PREMIUM VALUES('PR001', 'HabitaciÛn premium con cama ortopÈdica y ·rea de juegos para perros pequeÒos'),
-									 ('PR002', 'HabitaciÛn premium con piscina privada para perros medianos'),
-									 ('PR003', 'HabitaciÛn premium con jardÌn exclusivo para perros grandes'),
-									 ('PR004', 'HabitaciÛn premium con cama de lujo y ventana panor·mica para perros pequeÒos'),
-									 ('PR005', 'HabitaciÛn premium con sala de estar y acceso directo al parque para perros medianos'),
-									 ('PR006', 'HabitaciÛn premium con cama ortopÈdica y ·rea de juegos para perros grandes'),
-									 ('PR007', 'HabitaciÛn premium con piscina privada para perros pequeÒos'),
-									 ('PR008', 'HabitaciÛn premium con jardÌn exclusivo para perros medianos'),
-									 ('PR009', 'HabitaciÛn premium con cama de lujo y ventana panor·mica para perros grandes'),
- 									 ('PR010', 'HabitaciÛn premium con sala de estar y acceso directo al parque para perros pequeÒos'),
-									 ('PR011', 'HabitaciÛn premium con cama ortopÈdica y ·rea de juegos para perros medianos'),
-									 ('PR012', 'HabitaciÛn premium con piscina privada para perros grandes'),
-									 ('PR013', 'HabitaciÛn premium con jardÌn exclusivo para perros pequeÒos'),
-									 ('PR014', 'HabitaciÛn premium con cama de lujo y ventana panor·mica para perros medianos'),
-									 ('PR015', 'HabitaciÛn premium con sala de estar y acceso directo al parque para perros grandes'),
-									 ('PR016', 'HabitaciÛn premium con cama ortopÈdica y ·rea de juegos para perros pequeÒos'),
-									 ('PR017', 'HabitaciÛn premium con piscina privada para perros medianos'),
-									 ('PR018', 'HabitaciÛn premium con jardÌn exclusivo para perros grandes'),
-									 ('PR019', 'HabitaciÛn premium con cama de lujo y ventana panor·mica para perros pequeÒos'),
-									 ('PR020', 'HabitaciÛn premium con sala de estar y acceso directo al parque para perros medianos')
+INSERT INTO HABITACION_PREMIUM VALUES('PR001', 'Habitaci√≥n premium con cama ortop√©dica y √°rea de juegos para perros peque√±os'),
+									 ('PR002', 'Habitaci√≥n premium con piscina privada para perros medianos'),
+									 ('PR003', 'Habitaci√≥n premium con jard√≠n exclusivo para perros grandes'),
+									 ('PR004', 'Habitaci√≥n premium con cama de lujo y ventana panor√°mica para perros peque√±os'),
+									 ('PR005', 'Habitaci√≥n premium con sala de estar y acceso directo al parque para perros medianos'),
+									 ('PR006', 'Habitaci√≥n premium con cama ortop√©dica y √°rea de juegos para perros grandes'),
+									 ('PR007', 'Habitaci√≥n premium con piscina privada para perros peque√±os'),
+									 ('PR008', 'Habitaci√≥n premium con jard√≠n exclusivo para perros medianos'),
+									 ('PR009', 'Habitaci√≥n premium con cama de lujo y ventana panor√°mica para perros grandes'),
+ 									 ('PR010', 'Habitaci√≥n premium con sala de estar y acceso directo al parque para perros peque√±os'),
+									 ('PR011', 'Habitaci√≥n premium con cama ortop√©dica y √°rea de juegos para perros medianos'),
+									 ('PR012', 'Habitaci√≥n premium con piscina privada para perros grandes'),
+									 ('PR013', 'Habitaci√≥n premium con jard√≠n exclusivo para perros peque√±os'),
+									 ('PR014', 'Habitaci√≥n premium con cama de lujo y ventana panor√°mica para perros medianos'),
+									 ('PR015', 'Habitaci√≥n premium con sala de estar y acceso directo al parque para perros grandes'),
+									 ('PR016', 'Habitaci√≥n premium con cama ortop√©dica y √°rea de juegos para perros peque√±os'),
+									 ('PR017', 'Habitaci√≥n premium con piscina privada para perros medianos'),
+									 ('PR018', 'Habitaci√≥n premium con jard√≠n exclusivo para perros grandes'),
+									 ('PR019', 'Habitaci√≥n premium con cama de lujo y ventana panor√°mica para perros peque√±os'),
+									 ('PR020', 'Habitaci√≥n premium con sala de estar y acceso directo al parque para perros medianos')
 GO
 
 INSERT INTO PET_HOTEL VALUES('P001', 'Calle Paracas #23, Lima', '995241652', 'Hotel Canino Feliz'),
 							('P002', 'Avenida Mayo #521, Arequipa', '988231521', 'Pet Paradise'),
 							('P003', 'Calle Quilca #629, Trujillo', '998521340', 'Doggy Haven'),
 							('P004', 'Calle Cusco #521, Chiclayo', '994251342', 'Paws Palace'),
-							('P005', 'Calle JunÌn #983, Cusco', '904325145', 'Barkington Hotel'),
+							('P005', 'Calle Jun√≠n #983, Cusco', '904325145', 'Barkington Hotel'),
 							('P006', 'Avenida Amazonas #234, Lima', '987654321', 'Happy Tails Retreat'),
 							('P007', 'Calle Ucayali #789, Arequipa', '976543210', 'Pampered Paws Resort'),
 							('P008', 'Calle Tacna #345, Trujillo', '955432109', 'Tail Wag Inn'),
@@ -366,48 +366,48 @@ INSERT INTO HABITACION_CANINA VALUES('H001', 'CA001', 'PR001', NULL,'P004'),
 									('H020', 'CA020', NULL, 'E020','P016')
 GO
 
-INSERT INTO CLIENTE VALUES('C001', 'Juan', 'PÈrez', '12345679', '987654321', 'Calle Ayacucho #324, Lima'),
-						  ('C002', 'MarÌa', 'GÛmez', '87654321', '965786456', 'Avenida Cajamarca #942, Santa Rosa'),
-						  ('C003', 'Carlos', 'RodrÌguez', '56789112', '943567891', 'Calle San JosÈ #524, Callao'),
-						  ('C004', 'Laura', 'Hern·ndez', '34569890', '976345243', 'Calle J˙piter #155, Callao'),
-						  ('C005', 'Javier', 'LÛpez', '90123456', '945809743', 'Avenida Quilca #421, Callao'),
-						  ('C006', 'Ana', 'MartÌnez', '65432109', '964324578', 'Calle Huancavelica #210, Lima'),
-						  ('C007', 'Miguel', 'S·nchez', '89012395', '976543211', 'Avenida La Marina #735, San Isidro'),
-						  ('C008', 'Elena', 'RamÌrez', '43210987', '968245789', 'Calle Tacna #621, Magdalena'),
-						  ('C009', 'Pedro', 'Fern·ndez', '09876543', '985125852', 'Avenida El Sol #124, Surco'),
-						  ('C010', 'Silvia', 'DÌaz', '56789012', '901596357', 'Calle Las Flores #512, San Borja'),
-						  ('C011', 'Roberto', 'GarcÌa', '12345678', '901226848', 'Avenida Los Pinos #789, Miraflores'),
+INSERT INTO CLIENTE VALUES('C001', 'Juan', 'P√©rez', '42565679', '987654321', 'Calle Ayacucho #324, Lima'),
+						  ('C002', 'Mar√≠a', 'G√≥mez', '87654321', '965786456', 'Avenida Cajamarca #942, Santa Rosa'),
+						  ('C003', 'Carlos', 'Rodr√≠guez', '56789112', '943567891', 'Calle San Jos√© #524, Callao'),
+						  ('C004', 'Laura', 'Hern√°ndez', '34569890', '976345243', 'Calle J√∫piter #155, Callao'),
+						  ('C005', 'Javier', 'L√≥pez', '90123456', '945809743', 'Avenida Quilca #421, Callao'),
+						  ('C006', 'Ana', 'Mart√≠nez', '65432109', '964324578', 'Calle Huancavelica #210, Lima'),
+						  ('C007', 'Miguel', 'S√°nchez', '89012395', '976543211', 'Avenida La Marina #735, San Isidro'),
+						  ('C008', 'Elena', 'Ram√≠rez', '43210987', '968245789', 'Calle Tacna #621, Magdalena'),
+						  ('C009', 'Pedro', 'Fern√°ndez', '09876543', '985125852', 'Avenida El Sol #124, Surco'),
+						  ('C010', 'Silvia', 'D√≠az', '56789012', '901596357', 'Calle Las Flores #512, San Borja'),
+						  ('C011', 'Roberto', 'Garc√≠a', '12345678', '901226848', 'Avenida Los Pinos #789, Miraflores'),
 						  ('C012', 'Carolina', 'Moreno', '78901234', '901238526', 'Calle Los Olivos #345, San Miguel'),
 						  ('C013', 'Francisco', 'Peralta', '23456789', '901234753', 'Avenida Los Robles #987, La Molina'),
 						  ('C014', 'Valeria', 'Cordova', '89012345', '901234548', 'Calle Las Palmeras #654, San Isidro'),
 						  ('C015', 'Hugo', 'Navarro', '45678901', '901234567', 'Avenida Los Laureles #231, Surquillo'),
-						  ('C016', 'Lorena', 'Vargas', '67890123', '951156357', 'Calle Las OrquÌdeas #432, Barranco'),
+						  ('C016', 'Lorena', 'Vargas', '67890123', '951156357', 'Calle Las Orqu√≠deas #432, Barranco'),
 						  ('C017', 'Felipe', 'Guerrero', '34567890', '901753159', 'Avenida Los Alamos #567, La Victoria'),
-						  ('C018', 'Daniela', 'Romero', '01234567', '951369741', 'Calle Los Cerezos #876, Chorrillos'),
-						  ('C019', 'Ricardo', 'Salazar', '89014345', '925486293', 'Avenida Los P·jaros #543, Jes˙s MarÌa'),
-						  ('C020', 'Camila', 'Ch·vez', '23956789', '986243576', 'Calle Los Flamencos #789, Pueblo Libre')
+						  ('C018', 'Daniela', 'Romero', '01234367', '951369741', 'Calle Los Cerezos #876, Chorrillos'),
+						  ('C019', 'Ricardo', 'Salazar', '89014345', '925486293', 'Avenida Los P√°jaros #543, Jes√∫s Mar√≠a'),
+						  ('C020', 'Camila', 'Ch√°vez', '23956789', '986243576', 'Calle Los Flamencos #789, Pueblo Libre')
 GO
 
 INSERT INTO SERVICIO VALUES ('S001', 'Paseo', 20.00),
 							('S002', 'Habitaciones individuales', 30.00),
-							('S003', 'AlimentaciÛn personalizada', 15.00),
-							('S004', 'Cuidado mÈdico', 40.00),
+							('S003', 'Alimentaci√≥n personalizada', 15.00),
+							('S004', 'Cuidado m√©dico', 40.00),
 							('S005', 'Actividades recreativas', 25.00),
 							('S006', 'Piscina para perros', 35.00),
-							('S007', 'Entrenamiento b·sico', 30.00),
-							('S008', 'SalÛn de belleza', 25.00),
+							('S007', 'Entrenamiento b√°sico', 30.00),
+							('S008', 'Sal√≥n de belleza', 25.00),
 							('S009', 'Masajes', 40.00),
-							('S010', '¡reas de juego al aire libre', 20.00),
+							('S010', '√Åreas de juego al aire libre', 20.00),
 							('S011', 'Servicio de transporte', 50.00),
-							('S012', 'C·maras web', 20.00),
+							('S012', 'C√°maras web', 20.00),
 							('S013', 'Entrega de informes diarios', 30.00),
 							('S014', 'Terapia de comportamiento', 45.00),
-							('S015', 'Fiestas de cumpleaÒos', 40.00),
+							('S015', 'Fiestas de cumplea√±os', 40.00),
 							('S016', 'Cuidado nocturno', 50.00),
-							('S017', 'RecreaciÛn acu·tica', 30.00),
+							('S017', 'Recreaci√≥n acu√°tica', 30.00),
 							('S018', 'Parque de juegos para perros', 35.00),
-							('S019', 'Clases de socializaciÛn', 25.00),
-							('S020', 'Servicios de fotografÌa', 45.00);
+							('S019', 'Clases de socializaci√≥n', 25.00),
+							('S020', 'Servicios de fotograf√≠a', 45.00);
 GO
 
 INSERT INTO FACTURA VALUES('F001', 15.00, 16.20, 106.20),
@@ -519,26 +519,26 @@ INSERT INTO COMPROBANTE VALUES('C001','R003', NULL, 'B020'),
 							  ('C020','R003', NULL, 'B014')
 GO					  
 
-INSERT INTO HISTORIAL VALUES('HI001', 'Historial mÈdico del perro durante la estancia en el hotel.','R003'),
+INSERT INTO HISTORIAL VALUES('HI001', 'Historial m√©dico del perro durante la estancia en el hotel.','R003'),
 							('HI002', 'Observaciones y tratamientos realizados al perro.','R007'),
 							('HI003', 'Registro de comportamiento y actividades diarias del perro.','R012'),
-							('HI004', 'Notas sobre la alimentaciÛn y preferencias del perro.','R020'),
+							('HI004', 'Notas sobre la alimentaci√≥n y preferencias del perro.','R020'),
 							('HI005', 'Seguimiento de la salud y bienestar del perro en el hotel.','R002'),
-							('HI006', 'Informe diario sobre la actividad fÌsica del perro.','R007'),
-							('HI007', 'Seguimiento de la medicaciÛn y cuidados especiales.','R003'),
-							('HI008', 'Registro de juegos y socializaciÛn con otros perros.','R012'),
-							('HI009', 'Observaciones sobre el sueÒo y descanso del perro.','R007'),
+							('HI006', 'Informe diario sobre la actividad f√≠sica del perro.','R007'),
+							('HI007', 'Seguimiento de la medicaci√≥n y cuidados especiales.','R003'),
+							('HI008', 'Registro de juegos y socializaci√≥n con otros perros.','R012'),
+							('HI009', 'Observaciones sobre el sue√±o y descanso del perro.','R007'),
 							('HI010', 'Notas sobre posibles alergias o sensibilidades.','R012'),
 							('HI011', 'Registro de paseos y tiempo de juego al aire libre.','R002'),
 							('HI012', 'Seguimiento de la temperatura corporal y signos vitales.','R003'),
-							('HI013', 'Observaciones sobre la interacciÛn con el personal del hotel.','R005'),
+							('HI013', 'Observaciones sobre la interacci√≥n con el personal del hotel.','R005'),
 							('HI014', 'Registro de eventos especiales o cambios en el entorno.','R018'),
 							('HI015', 'Notas sobre la respuesta a comandos y entrenamiento.','R019'),
 							('HI016', 'Informe detallado sobre la dieta y consumo de agua.','R020'),
 							('HI017', 'Seguimiento de la higiene y cuidado personal del perro.','R003'),
 							('HI018', 'Registro de posibles comportamientos inusuales o preocupantes.','R005'),
-							('HI019', 'Observaciones sobre la adaptaciÛn del perro al entorno.','R006'),
-							('HI020', 'Seguimiento de eventos mÈdicos y consultas veterinarias.','R010')
+							('HI019', 'Observaciones sobre la adaptaci√≥n del perro al entorno.','R006'),
+							('HI020', 'Seguimiento de eventos m√©dicos y consultas veterinarias.','R010')
 GO
 
 --EJECUTAMOS LAS TABLAS:
@@ -569,7 +569,7 @@ SELECT * FROM RAZA
 
 
 --AHORA HAREMOS USO DE LO QUE APRENDIMOS EN CLASE SOBRE CONSULTAS:
---CONSULTAS B¡SICAS:
+--CONSULTAS B√ÅSICAS:
 ----CANINO
 ---QUE MUESTRE LA EDAD DE LOS PERROS QUE TIENEN 3 DE EDAD
 SELECT EDAD FROM CANINO
@@ -579,12 +579,12 @@ WHERE EDAD LIKE(3)
 SELECT PESO FROM CANINO
 WHERE PESO < 15
 
----QUE MUESTRE QUE PERROS EST¡N ENTRE LOS TAMA—OS PEQUE—O Y MEDIANO
-SELECT ID_CANINO AS 'N⁄MERO PERRO',
+---QUE MUESTRE QUE PERROS EST√ÅN ENTRE LOS TAMA√ëOS PEQUE√ëO Y MEDIANO
+SELECT ID_CANINO AS 'N√öMERO PERRO',
 	   NOMBRE AS 'NOMBRE PERRO',
-	   TAMA—O AS 'TAMA—O PERRO'
+	   TAMA√ëO AS 'TAMA√ëO PERRO'
 FROM CANINO
-WHERE TAMA—O IN ('PequeÒo', 'Mediano')
+WHERE TAMA√ëO IN ('Peque√±o', 'Mediano')
 
 
 ----CLIENTE
@@ -594,11 +594,11 @@ WHERE APELLIDO LIKE('%Z')
 
 --MUESTRA LA DIRRECION QUE SEAN AVENIDA
 SELECT * FROM CLIENTE
-WHERE DIRECCI”N LIKE ('A%')
+WHERE DIRECCI√ìN LIKE ('A%')
 
 --MUESTRA LA DIRRECION QUE SEAN CALLE
 SELECT * FROM CLIENTE
-WHERE DIRECCI”N LIKE ('C%')
+WHERE DIRECCI√ìN LIKE ('C%')
 
 --MUESTRA LOS NOMBRES QUE TENGAN LA C DE INICIAL
 SELECT * FROM CLIENTE
@@ -610,40 +610,40 @@ WHERE NOMBRE LIKE('C%')
 SELECT NOMBRE FROM PET_HOTEL
 WHERE NOMBRE LIKE('P%')
 
---MUESTRA LOS N⁄MEROS TEL…FONICOS QUE COMIENCEN POR 982
-SELECT TEL…FONO FROM PET_HOTEL
-WHERE TEL…FONO LIKE('982')
+--MUESTRA LOS N√öMEROS TEL√âFONICOS QUE COMIENCEN POR 982
+SELECT TEL√âFONO FROM PET_HOTEL
+WHERE TEL√âFONO LIKE('982')
 
 ---MUESTRA LA DIRRECION QUE SEAN CALLE
-SELECT DIRECCI”N FROM PET_HOTEL
-WHERE DIRECCI”N LIKE ('C%')
+SELECT DIRECCI√ìN FROM PET_HOTEL
+WHERE DIRECCI√ìN LIKE ('C%')
 
 --MUESTRA LA DIRRECION QUE SEAN AVENIDA
-SELECT DIRECCI”N FROM PET_HOTEL
-WHERE DIRECCI”N LIKE ('A%')
+SELECT DIRECCI√ìN FROM PET_HOTEL
+WHERE DIRECCI√ìN LIKE ('A%')
 
 
 --RESERVAS
---MUESTRA EL ID DE LAS RESERVAS CUYO PRECIO EST¡ ENTRE 30 Y 100
+--MUESTRA EL ID DE LAS RESERVAS CUYO PRECIO EST√Å ENTRE 30 Y 100
 SELECT ID_RESERVA FROM RESERVA
 WHERE PRECIO BETWEEN 30 AND 100
 
 --MUESTRA LA DIFERENCIA EN SEMANAS ENTRE LA FECHA DE ENTRADA Y DE SALIDA
-SELECT ID_RESERVA AS 'N⁄MERO RESERVA',
+SELECT ID_RESERVA AS 'N√öMERO RESERVA',
 	   FECHA_INI AS 'FECHA INICIAL',
 	   FECHA_SAL AS 'FECHA FINAL',
 	   DATEDIFF(WEEK, FECHA_INI, FECHA_SAL) AS 'DIFERENCIA SEMANAS' 
 FROM RESERVA
 
---MUESTRA LA DIFERENCIA EN DÕAS ENTRE LA FECHA DE ENTRADA Y DE SALIDA
-SELECT ID_RESERVA AS 'N⁄MERO RESERVA',
+--MUESTRA LA DIFERENCIA EN D√çAS ENTRE LA FECHA DE ENTRADA Y DE SALIDA
+SELECT ID_RESERVA AS 'N√öMERO RESERVA',
 	   FECHA_INI AS 'FECHA INICIAL',
 	   FECHA_SAL AS 'FECHA FINAL',
-	   DATEDIFF(DAY, FECHA_INI, FECHA_SAL) AS 'DIFERENCIA DÕAS' 
+	   DATEDIFF(DAY, FECHA_INI, FECHA_SAL) AS 'DIFERENCIA D√çAS' 
 FROM RESERVA
 
 --MUESTRA LA DIFERENCIA EN HORAS ENTRE LA FECHA DE ENTRADA Y DE SALIDA
-SELECT ID_RESERVA AS 'N⁄MERO RESERVA',
+SELECT ID_RESERVA AS 'N√öMERO RESERVA',
 	   FECHA_INI AS 'FECHA INICIAL',
 	   FECHA_SAL AS 'FECHA FINAL',
 	   DATEDIFF(HOUR, FECHA_INI, FECHA_SAL) AS 'DIFERENCIA HORAS' 
@@ -651,18 +651,18 @@ FROM RESERVA
 
 
 -------------------------------------------------------------------------------------
---CONSULTAS CON OPERACIONES DE UNI”N:
+--CONSULTAS CON OPERACIONES DE UNI√ìN:
 --INNER JOIN:
 /*
-1. QUIERO VER QUE PERROS TIENEN HABITACI”N EST¡NDAR 
+1. QUIERO VER QUE PERROS TIENEN HABITACI√ìN EST√ÅNDAR 
    Y SUS RESPECTIVOS DATOS DE SUS TARJETAS
 */
 SELECT C.NOMBRE,
 	   C.EDAD,
-	   HC.NRO_HABI AS 'N⁄MERO HABITACI”N EST¡NDAR',
+	   HC.NRO_HABI AS 'N√öMERO HABITACI√ìN EST√ÅNDAR',
 	   T.ANTIPULGAS,
-	   T.DESPARASITACI”N,
-	   T.INDICACI”N
+	   T.DESPARASITACI√ìN,
+	   T.INDICACI√ìN
 FROM CANINO C
 INNER JOIN HABITACION_CANINA HC ON HC.ID_CANINO=C.ID_CANINO
 INNER JOIN HABITACION_ESTANDAR HE ON HC.ID_ESTANDAR=HE.ID_ESTANDAR
@@ -671,13 +671,13 @@ WHERE HC.ID_ESTANDAR IS NOT NULL
 AND HC.ID_PREMIUM IS NULL
 GO
 	
---2. LO MISMO QUE EN EL CASO ANTERIOR, PERO CON LA HABITACI”N PREMIUM
+--2. LO MISMO QUE EN EL CASO ANTERIOR, PERO CON LA HABITACI√ìN PREMIUM
 SELECT C.NOMBRE,
 	   C.EDAD,
-	   HC.NRO_HABI AS 'N⁄MERO HABITACI”N PREMIUM',
+	   HC.NRO_HABI AS 'N√öMERO HABITACI√ìN PREMIUM',
 	   T.ANTIPULGAS,
-	   T.DESPARASITACI”N,
-	   T.INDICACI”N
+	   T.DESPARASITACI√ìN,
+	   T.INDICACI√ìN
 FROM CANINO C
 INNER JOIN HABITACION_CANINA HC ON HC.ID_CANINO=C.ID_CANINO
 INNER JOIN HABITACION_PREMIUM HP ON HC.ID_PREMIUM=HP.ID_PREMIUM
@@ -687,11 +687,11 @@ AND HC.ID_PREMIUM IS NOT NULL
 GO
 	
 /*
-3. AHORA REALIZAREMOS UNA CONSULTA QUE BUSQUE MOSTRAR EL N⁄MERO DE CLIENTE,
-   SU NOMBRE, EL DÕA QUE INGRES” CON SU MASCOTA(NOMBRE); ADEM¡S DE ESO, 
-   EL DÕA EN EL QUE SE RETIRAR¡
+3. AHORA REALIZAREMOS UNA CONSULTA QUE BUSQUE MOSTRAR EL N√öMERO DE CLIENTE,
+   SU NOMBRE, EL D√çA QUE INGRES√ì CON SU MASCOTA(NOMBRE); ADEM√ÅS DE ESO, 
+   EL D√çA EN EL QUE SE RETIRAR√Å
 */
-SELECT C.ID_CLIENTE AS 'N⁄MERO CLIENTE',
+SELECT C.ID_CLIENTE AS 'N√öMERO CLIENTE',
 	   (C.NOMBRE+SPACE(1)+C.APELLIDO) AS 'NOMBRE Y APELLIDO CLIENTE',
 	   CA.NOMBRE AS 'NOMBRE MASCOTA',
 	   R.FECHA_INI AS 'FECHA INGRESO',
@@ -703,10 +703,10 @@ GO
 	
 /*
 4. REALIZAMOS UNA CONSULTA QUE NOS DIGA EN QUE HOTEL 
-   DE PERROS EST¡ EL CLIENTE Y CUANTO ES EL COSTO QUE ESTE PAGAR¡
+   DE PERROS EST√Å EL CLIENTE Y CUANTO ES EL COSTO QUE ESTE PAGAR√Å
 */
 SELECT P.NOMBRE AS 'NOMBRE DEL HOTEL DE PERROS',
-       P.DIRECCI”N AS 'DIRECCI”N DEL HOTEL DE PERROS',
+       P.DIRECCI√ìN AS 'DIRECCI√ìN DEL HOTEL DE PERROS',
 	   (C.NOMBRE+SPACE(1)+C.APELLIDO) AS 'NOMBRE Y APELLIDO CLIENTE',
 	   CONCAT('S/. ',R.PRECIO) AS 'PRECIO POR LA RESERVA DE MASCOTA'
 FROM PET_HOTEL P
@@ -716,23 +716,23 @@ ORDER BY R.PRECIO
 GO
 	
 /*
-5. AHORA HABLAREMOS DE LOS PERROS VACUNADOS... øDE QU… TIPO DE RAZA ES? 
-   øQU… TIPOS DE VACUNAS POSEES? Y DEM¡S DATOS DE SU TARJETA
+5. AHORA HABLAREMOS DE LOS PERROS VACUNADOS... ¬øDE QU√â TIPO DE RAZA ES? 
+   ¬øQU√â TIPOS DE VACUNAS POSEES? Y DEM√ÅS DATOS DE SU TARJETA
 */
 SELECT C.NOMBRE AS 'NOMBRE DEL PERRO',
 	   R.TIPO_RAZA AS 'RAZA DEL PERRO',
-	   R.DESCRIPCI”N AS 'DESCRIPCI”N DE LA RAZA',
+	   R.DESCRIPCI√ìN AS 'DESCRIPCI√ìN DE LA RAZA',
 	   V.TIPO_VACUNA AS 'VACUNA QUE POSEE EL PERRO',
-	   V.DESCRIPCI”N AS 'DESCRIPCI”N DE LA VACUNA',
-	   T.ID_TARJETA AS 'N⁄MERO DE TARJETA',
+	   V.DESCRIPCI√ìN AS 'DESCRIPCI√ìN DE LA VACUNA',
+	   T.ID_TARJETA AS 'N√öMERO DE TARJETA',
 	   T.ANTIPULGAS,
-	   T.DESPARASITACI”N,
-	   T.INDICACI”N,
-	   T.DESCRIPCI”N AS 'DESCRIPCI”N DE LA TARJETA'
+	   T.DESPARASITACI√ìN,
+	   T.INDICACI√ìN,
+	   T.DESCRIPCI√ìN AS 'DESCRIPCI√ìN DE LA TARJETA'
 FROM CANINO C
 INNER JOIN RAZA R ON C.ID_RAZA = R.ID_RAZA
 INNER JOIN TARJETA T ON T.ID_TARJETA = C.ID_TARJETA
-INNER JOIN PERRO_VACUNADO PV ON C.ID_CANINO = PV.ID_CANINO 
+INNER JOIN VAC_CANINO PV ON C.ID_CANINO = PV.ID_CANINO 
 INNER JOIN VACUNA V ON V.ID_VACUNA = PV.ID_VACUNA
 ORDER BY T.ID_TARJETA
 GO
@@ -740,12 +740,12 @@ GO
 --LEFT JOIN:
 /*
 1. MOSTRAREMOS A LOS CLIENTES CON NOMBRES, IDENTIFICADOR, DNI Y TELEFONO CON SU IDENTIFICADOR
-   DE RESERVA Y EL PRECIO QUE PAGAR¡N DE MENOR A MAYOR
+   DE RESERVA Y EL PRECIO QUE PAGAR√ÅN DE MENOR A MAYOR
 */
 SELECT C.ID_CLIENTE, 
 		C.NOMBRE AS 'NOMBRE_CLIENTE',	
 		C.DNI, 
-		C.TEL…FONO, 
+		C.TEL√âFONO, 
        R.ID_RESERVA,  
 	   R.PRECIO
 FROM CLIENTE C
@@ -756,7 +756,7 @@ ORDER BY PRECIO ASC
 2. MOSTRAREMOS LAS HABITACIONES EL IDENTIFICADOR DEL CANINO Y 
    EL IDENTIFICADOR DEL PET HOTEL
 */
-SELECT H.NRO_HABI AS 'HABITACI”N',
+SELECT H.NRO_HABI AS 'HABITACI√ìN',
 	   H.ID_CANINO,
 	   H.ID_PET
 FROM HABITACION_CANINA H
@@ -765,7 +765,7 @@ ORDER BY ID_PET DESC
 
 /*
 3. MOSTRAREMOS EL NOMBRE DEL PERRO, SU PESO EN FORMA ASCENDENTE 
-   Y TAMBI…N EL TIPO DE RAZA
+   Y TAMBI√âN EL TIPO DE RAZA
 */
 SELECT C.NOMBRE,
 	   C.PESO AS 'PESO KG',
@@ -775,10 +775,10 @@ LEFT JOIN RAZA R ON R.ID_RAZA = C.ID_RAZA
 ORDER BY PESO ASC
 
 /*
-4. MOSTRAREMOS EL CODIGO DE HABITACI”N, EL IDENTIFICADOR DEL CANINO Y 
+4. MOSTRAREMOS EL CODIGO DE HABITACI√ìN, EL IDENTIFICADOR DEL CANINO Y 
    DE SU TARJETA
 */
-SELECT H.NRO_HABI AS 'CODIGO DE HABITACI”N',
+SELECT H.NRO_HABI AS 'CODIGO DE HABITACI√ìN',
 	   C.ID_CANINO,
 	   C.ID_TARJETA
 FROM HABITACION_CANINA H
@@ -786,45 +786,45 @@ LEFT JOIN CANINO C ON C.ID_CANINO=H.ID_CANINO
 ORDER BY ID_TARJETA ASC
 
 /*
-5. MOSTRAMOS TODOS LOS CANINOS  CON SU IDENTIFICADOR, NOMBRE, TAMA—O 
-   Y SI CUENTA CON SUS ANTIPULGAS Y DESPARASITACI”N EN SU TARJETA
+5. MOSTRAMOS TODOS LOS CANINOS  CON SU IDENTIFICADOR, NOMBRE, TAMA√ëO 
+   Y SI CUENTA CON SUS ANTIPULGAS Y DESPARASITACI√ìN EN SU TARJETA
 */
 SELECT C.ID_CANINO,
 	   C.NOMBRE AS 'NOMBRE DE LA MASCOTA',
-	   C.TAMA—O,
+	   C.TAMA√ëO,
 	   T.ANTIPULGAS,
-	   T.DESPARASITACI”N
+	   T.DESPARASITACI√ìN
 FROM CANINO C
 LEFT JOIN TARJETA T ON T.ID_TARJETA=C.ID_TARJETA
 
 
 --RIGHT JOIN:
 /*
-1. MOSTRAREMOS QUE VACUNAS TIENE CADA PERRO, PERO TAMBI…N 
-   MOSTRAREMOS LAS DEM¡S VACUNAS QUE HAY, PERO NING⁄N PERRO POSEE
+1. MOSTRAREMOS QUE VACUNAS TIENE CADA PERRO, PERO TAMBI√âN 
+   MOSTRAREMOS LAS DEM√ÅS VACUNAS QUE HAY, PERO NING√öN PERRO POSEE
 */
 SELECT C.NOMBRE AS 'NOMBRE PERRO',
 	   V.TIPO_VACUNA AS 'VACUNA',
-	   V.DESCRIPCI”N AS 'DESCRIPCI”N VACUNA' 
+	   V.DESCRIPCI√ìN AS 'DESCRIPCI√ìN VACUNA' 
 FROM CANINO C
-INNER JOIN PERRO_VACUNADO VP ON VP.ID_CANINO = C.ID_CANINO
+INNER JOIN VAC_CANINO VP ON VP.ID_CANINO = C.ID_CANINO
 RIGHT JOIN VACUNA V ON V.ID_VACUNA = VP.ID_VACUNA
 ORDER BY C.NOMBRE DESC
 
 /*
-2. MOSTRAREMOS TODAS LAS RAZAS JUNTO CON LA INFORMACI”N DE LOS PERROS
+2. MOSTRAREMOS TODAS LAS RAZAS JUNTO CON LA INFORMACI√ìN DE LOS PERROS
 QUE LAS TIENEN ASIGNADAS, INCLUSO SI NO HAY PERROS ASIGNADOS A ALGUNAS RAZAS
 */
 SELECT C.NOMBRE AS 'NOMBRE PERRO',
 	   R.TIPO_RAZA AS 'RAZA',
-	   R.DESCRIPCI”N AS 'DESCRIPCI”N RAZA'
+	   R.DESCRIPCI√ìN AS 'DESCRIPCI√ìN RAZA'
 FROM CANINO C
 RIGHT JOIN RAZA R ON R.ID_RAZA = C.ID_RAZA
 ORDER BY C.NOMBRE DESC
 
 /*
 3. MOSTRAREMOS CADA FACTURA, SERVICIOS, IMPUESTO Y COSTO TOTAL DE CADA 
-   FACTURA QUE TENGA UN CLIENTE CON FACTURA Y LOS DEM¡S CLIENTES AUNQUE NO TENGAN
+   FACTURA QUE TENGA UN CLIENTE CON FACTURA Y LOS DEM√ÅS CLIENTES AUNQUE NO TENGAN
    FACTURA
 */
 SELECT (C.NOMBRE+SPACE(1)+C.APELLIDO) AS 'NOMBRE Y APELLIDO',
@@ -848,9 +848,9 @@ ORDER BY [COSTO TOTAL] DESC
 4. MOSTRAREMOS CUANTOS HISTORIALES TIENE CADA RESERVA Y COLOCAREMOS LAS RESERVAS
    RESTANTES AUNQUE NO TENGAN HISTORIALES
 */
-SELECT H.ID_HISTORIAL AS 'N⁄MERO HISTORIAL',
-	   H.DESCRIPCI”N AS 'DESCRIPCI”N HISTORIAL',
-	   R.ID_RESERVA AS 'N⁄MERO RESERVA'
+SELECT H.ID_HISTORIAL AS 'N√öMERO HISTORIAL',
+	   H.DESCRIPCI√ìN AS 'DESCRIPCI√ìN HISTORIAL',
+	   R.ID_RESERVA AS 'N√öMERO RESERVA'
 FROM HISTORIAL H
 RIGHT JOIN RESERVA R ON H.ID_RESERVA = R.ID_RESERVA
 ORDER BY H.ID_RESERVA DESC
@@ -859,12 +859,60 @@ ORDER BY H.ID_RESERVA DESC
 5. MOSTRAREMOS TODOS LOS HOTELES DE PERROS Y SUS RESERVAS AUNQUE HAYAN HOTEL
    DE PERROS SIN RESERVAS
 */
-SELECT P.ID_PET AS 'N⁄MERO HOTEL PERROS',
+SELECT P.ID_PET AS 'N√öMERO HOTEL PERROS',
 	   P.NOMBRE AS 'NOMBRE HOTEL PERROS',
-	   R.ID_RESERVA AS 'N⁄MERO RESERVA'
+	   R.ID_RESERVA AS 'N√öMERO RESERVA'
 FROM RESERVA R
 RIGHT JOIN PET_HOTEL P ON R.ID_PET = P.ID_PET
 ORDER BY R.ID_RESERVA DESC
+
+
+-- FULL JOIN:
+/*
+1. REALIZA UNA UNION ENTRE EL ID DE LAS TABLAS RESERVA, CLIENTE, FACTURA Y COMPROBANTE.
+*/
+SELECT R.ID_RESERVA, C.ID_CLIENTE, F.ID_FACTURA, B.ID_BOLETA
+FROM RESERVA R
+FULL JOIN COMPROBANTE C ON R.ID_RESERVA = C.ID_RESERVA
+FULL JOIN FACTURA F ON R.ID_RESERVA = F.ID_FACTURA
+FULL JOIN BOLETA B ON R.ID_RESERVA = B.ID_BOLETA
+
+/*
+2. REALIZA UNA UNI√ìN DE LAS TABLAS RESERVA Y HISTORIAL
+*/
+SELECT R.ID_RESERVA, H.ID_HISTORIAL, R.FECHA_INI, R.FECHA_SAL, R.PRECIO
+FROM RESERVA R
+FULL JOIN HISTORIAL H ON R.ID_RESERVA = H.ID_RESERVA
+
+/*
+3. REALIZA UNA UNI√ìN ENTRE LA HABITACI√ìN CANINA Y SUS 2 TIPOS.
+*/
+SELECT H.NRO_HABI AS 'N√öMERO HABITACI√ìN',
+	   E.ID_ESTANDAR AS 'EST√ÅNDAR',
+	   P.ID_PREMIUM AS 'PREMIUM'
+FROM HABITACION_CANINA H
+FULL JOIN HABITACION_ESTANDAR E ON H.ID_ESTANDAR = E.ID_ESTANDAR
+FULL JOIN HABITACION_PREMIUM P ON H.ID_PREMIUM = P.ID_PREMIUM
+
+/*
+4. REALIZA UNA UNI√ìN ENTRE LA TABLA CANINO, RAZA Y COLOR.
+*/
+SELECT C.NOMBRE AS 'NOMBRE PERRO',
+	   R.TIPO_RAZA  AS 'RAZA',
+	   CO.NOMBRE AS 'COLOR'
+FROM CANINO C
+FULL JOIN RAZA R ON R.ID_RAZA = C.ID_RAZA
+FULL JOIN COLOR_CANINO CO ON CO.ID_COLOR = C.ID_COLOR
+
+/*
+5. VER TODOS LOS NOMBRES DE LOS CANINOS Y TODAS LAS VACUNAS REGISTRADAS.
+*/
+SELECT C.NOMBRE AS 'NOMBRE CANINO',
+	   V.TIPO_VACUNA AS 'VACUNA',
+	   V.DECRIPCION AS 'DESCRIPCI√ìN VACUNA'
+FROM CANINO C
+FULL JOIN VAC_CANINO PV ON PV.ID_CANINO = C.ID_CANINO
+FULL JOIN VACUNA V ON PV.ID_VACUNA = V.ID_VACUNA
 
 
 -------------------------------------------------------------------------------------
@@ -872,12 +920,12 @@ ORDER BY R.ID_RESERVA DESC
 /*
 1. SACAREMOS LOS PRECIOS MAYORES A LA MEDIA DE LA TABLA RESERVA 
 */
-SELECT ID_RESERVA AS 'N⁄MERO RESESRVA',
+SELECT ID_RESERVA AS 'N√öMERO RESESRVA',
 	   CONCAT('S/.',STR(PRECIO)) AS 'PRECIO'
 FROM RESERVA WHERE PRECIO > (SELECT AVG(PRECIO) FROM RESERVA)
 
 /*
-2. MOSTRAREMOS TODOS LOS PERROS CUYO PESO EST¡ ENTRE 15 Y 24 KILOS
+2. MOSTRAREMOS TODOS LOS PERROS CUYO PESO EST√Å ENTRE 15 Y 24 KILOS
 */
 SELECT NOMBRE AS 'NOMBRE PERRO', 
 	   CONCAT(PESO,' KG') AS 'PESO'
@@ -893,7 +941,7 @@ FROM PET_HOTEL WHERE NOMBRE IN (SELECT NOMBRE FROM PET_HOTEL WHERE NOMBRE LIKE '
 ------------------------------------------------------------------------------------
 --VARIABLES LOCALES CON CONSULTAS
 /*
-1. SACAR… LA CANTIDAD DE PERROS EN LA TABLA CANINO
+1. SACAR√â LA CANTIDAD DE PERROS EN LA TABLA CANINO
 */
 DECLARE @CANT_PERRO INT
 SELECT @CANT_PERRO=(SELECT COUNT(NOMBRE) FROM CANINO)
@@ -901,21 +949,21 @@ PRINT CONCAT('LA CANTIDAD DE PERROS ES: ', @CANT_PERRO)
 GO
 
 /*
-2. SACAR… EL NOMBRE, APELLIDO, DNI, TEL…FONO Y DIRECCI”N DEL CLIENTE C005
+2. SACAR√â EL NOMBRE, APELLIDO, DNI, TEL√âFONO Y DIRECCI√ìN DEL CLIENTE C005
 */
-DECLARE @NOMBRE_APE VARCHAR(40), @DNI CHAR(8), @TEL…FONO CHAR(9), @DIRECCI”N VARCHAR(50)
+DECLARE @NOMBRE_APE VARCHAR(40), @DNI CHAR(8), @TEL√âFONO CHAR(9), @DIRECCI√ìN VARCHAR(50)
 SELECT @NOMBRE_APE = (SELECT (NOMBRE + SPACE(1) + APELLIDO) FROM CLIENTE WHERE ID_CLIENTE = 'C005')
 SELECT @DNI = (SELECT DNI FROM CLIENTE WHERE ID_CLIENTE = 'C005')
-SELECT @TEL…FONO = (SELECT TEL…FONO FROM CLIENTE WHERE ID_CLIENTE = 'C005')
-SELECT @DIRECCI”N = (SELECT DIRECCI”N FROM CLIENTE WHERE ID_CLIENTE = 'C005')
+SELECT @TEL√âFONO = (SELECT TEL√âFONO FROM CLIENTE WHERE ID_CLIENTE = 'C005')
+SELECT @DIRECCI√ìN = (SELECT DIRECCI√ìN FROM CLIENTE WHERE ID_CLIENTE = 'C005')
 PRINT 'NOMBRE Y APELLIDO: ' + @NOMBRE_APE
 PRINT 'DNI: ' + @DNI
-PRINT 'TEL…FONO: ' + @TEL…FONO
-PRINT 'DIRECCI”N: ' + @DIRECCI”N
+PRINT 'TEL√âFONO: ' + @TEL√âFONO
+PRINT 'DIRECCI√ìN: ' + @DIRECCI√ìN
 GO
 
 /*
-3. SACAR… LA SUMA DE TODOS LOS COSTOS DE LA TABLA FACTURA
+3. SACAR√â LA SUMA DE TODOS LOS COSTOS DE LA TABLA FACTURA
 */
 DECLARE @SUMA_COSTO MONEY
 SELECT @SUMA_COSTO = (SELECT SUM(COSTO_TOTAL) FROM FACTURA)
@@ -923,10 +971,10 @@ PRINT CONCAT('LA SUMA DE TODOS LOS COSTOS DE LA TABLA FACTURA ES: S/. ',@SUMA_CO
 GO
 
 -------------------------------------------------------------------------------------
---FUNCI”N ESCALAR
+--FUNCI√ìN ESCALAR
 /*
-1. EN ESTA FUNCI”N ESCALAR MOSTRAR… LA CANTIDAD DE HABITACI”N PREMIUM HAY
-   REGISTRADAS EN LA TABLA HABITACI”N CANINA
+1. EN ESTA FUNCI√ìN ESCALAR MOSTRAR√â LA CANTIDAD DE HABITACI√ìN PREMIUM HAY
+   REGISTRADAS EN LA TABLA HABITACI√ìN CANINA
 */
 CREATE FUNCTION DBO.CONTADOR_PR() RETURNS INT
 AS
@@ -936,11 +984,11 @@ AS
 		RETURN @CONTADOR_PR
 	END
 GO
-PRINT CONCAT('LA CANTIDAD DE HABITACI”N PREMIUM SON: ', DBO.CONTADOR_PR(), ' DE 20')
+PRINT CONCAT('LA CANTIDAD DE HABITACI√ìN PREMIUM SON: ', DBO.CONTADOR_PR(), ' DE 20')
 GO
 
 /*
-2. EN ESTA FUNCI”N MOSTRAR… TODOS LOS DATOS DEL CANINO CUYO IDENTIFICADOR ES CA010
+2. EN ESTA FUNCI√ìN MOSTRAR√â TODOS LOS DATOS DEL CANINO CUYO IDENTIFICADOR ES CA010
 */
 CREATE FUNCTION DBO.DATOS_PERRO() RETURNS VARCHAR(MAX)
 AS
@@ -950,12 +998,12 @@ AS
 		SET @DATOS = @EXTRA
 		SELECT @EXTRA = STR(PESO) FROM CANINO WHERE ID_CANINO = 'CA010'
 		SET @DATOS = CONCAT(@DATOS, ', UN PESO DE ', LTRIM(@EXTRA))
-		SELECT @EXTRA = UPPER(TAMA—O) FROM CANINO WHERE ID_CANINO = 'CA010'
-		SET @DATOS = CONCAT(@DATOS, 'KG Y UN TAMA—O ', @EXTRA, '.')
+		SELECT @EXTRA = UPPER(TAMA√ëO) FROM CANINO WHERE ID_CANINO = 'CA010'
+		SET @DATOS = CONCAT(@DATOS, 'KG Y UN TAMA√ëO ', @EXTRA, '.')
 		RETURN @DATOS
 	END
 GO
-PRINT 'EL PERRO CON IDENTIFICACI”N CA010 TIENE DE NOMBRE ' + DBO.DATOS_PERRO()
+PRINT 'EL PERRO CON IDENTIFICACI√ìN CA010 TIENE DE NOMBRE ' + DBO.DATOS_PERRO()
 GO
 
 /*	
@@ -973,27 +1021,27 @@ PRINT CONCAT('Su costo total es: S/. ', DBO.COSTO_SUM())
 GO
 
 -------------------------------------------------------------------------------------
---FUNCI”N DE TABLAS
+--FUNCI√ìN DE TABLAS
 /*
-1. EN ESTA CONSULTA, UNÕ LA TABLA HISTORIAL CON LA TABLA RESERVA Y, DESPU…S DE ESO, HICE QUE COMPARE
-   ENTRE LOS REGISTROS DE DESCRIPCI”N LOS QUE SON 'SEGUIMIENTO DE LA MEDICACI”N Y CUIDADOS ESPECIALES'
+1. EN ESTA CONSULTA, UN√ç LA TABLA HISTORIAL CON LA TABLA RESERVA Y, DESPU√âS DE ESO, HICE QUE COMPARE
+   ENTRE LOS REGISTROS DE DESCRIPCI√ìN LOS QUE SON 'SEGUIMIENTO DE LA MEDICACI√ìN Y CUIDADOS ESPECIALES'
 */
 CREATE FUNCTION T_HISTORIAL()
 RETURNS TABLE
 AS
 	RETURN (SELECT H.ID_HISTORIAL CODIGO, 
-		       H.DESCRIPCI”N DESCRIPCION, 
+		       H.DESCRIPCI√ìN DESCRIPCION, 
 		       R.PRECIO, 
 		       R.FECHA_INI, 
 		       R.FECHA_SAL
 	FROM RESERVA R JOIN HISTORIAL H ON R.ID_RESERVA = H.ID_RESERVA)
 GO
-SELECT * FROM T_HISTORIAL() WHERE DESCRIPCION = 'Seguimiento de la medicaciÛn y cuidados especiales.'
+SELECT * FROM T_HISTORIAL() WHERE DESCRIPCION = 'Seguimiento de la medicaci√≥n y cuidados especiales.'
 GO
 
 /*
 2. HAREMOS UNA CONSULTA QUE ME DEVUELVA LOS IDENTIFICADORES DE LAS VACUNAS
-   JUNTO AL TIPO DE VACUNA, HACIENDO USO UNA FUNCI”N DE TABLAS
+   JUNTO AL TIPO DE VACUNA, HACIENDO USO UNA FUNCI√ìN DE TABLAS
 */
 CREATE FUNCTION PV_VACUNA()
 RETURNS TABLE
@@ -1001,7 +1049,7 @@ AS
 	RETURN (
 		SELECT V.ID_VACUNA AS CODIGO,
 			   V.TIPO_VACUNA AS TIPO_DE_VACUNA
-		FROM PERRO_VACUNADO P
+		FROM VAC_CANINO P
 		INNER JOIN VACUNA V ON P.ID_VACUNA = V.ID_VACUNA
 	)
 GO
@@ -1010,7 +1058,7 @@ GO
 
 /*
 3. MOSTRAREMOS UNA CONSULTA QUE ME DEVUELVA LOS SIGUIENTES CAMPOS: IDENTIFICADORES DE LAS RAZAS, TIPO DE RAZA,
-   NOMBRE Y EL PESO, HACIENDO USO UNA FUNCI”N DE TABLAS
+   NOMBRE Y EL PESO, HACIENDO USO UNA FUNCI√ìN DE TABLAS
 */
 CREATE FUNCTION R_CANINO()
 RETURNS TABLE
@@ -1023,32 +1071,32 @@ AS
         INNER JOIN RAZA R ON C.ID_RAZA = R.ID_RAZA
     )
 GO
-SELECT * FROM R_CANINO() WHERE TIPO_DE_RAZA='PASTOR ALEM¡N'
+SELECT * FROM R_CANINO() WHERE TIPO_DE_RAZA='PASTOR ALEM√ÅN'
 GO
 
 /*
-4. UNÕ LA TABLA CLIENTE CON LA TABLA FACTURA E HICE QUE BUSQUE EN EL CAMPO 
-   SERVICIO O NOMBRE_SERVICIO SI TIENE 'Cuidado mÈdico'
+4. UN√ç LA TABLA CLIENTE CON LA TABLA FACTURA E HICE QUE BUSQUE EN EL CAMPO 
+   SERVICIO O NOMBRE_SERVICIO SI TIENE 'Cuidado m√©dico'
 */
 CREATE FUNCTION T_CLIENTE()
 RETURNS TABLE
 AS
-	RETURN (SELECT F.ID_FACTURA C”DIGO,
+	RETURN (SELECT F.ID_FACTURA C√ìDIGO,
 				   S.SERVICIO NOMBRE_SERVICIO,
 				   CONCAT(C.NOMBRE, SPACE(1), C.APELLIDO) AS 'NOMBRE APELLIDO CLIENTE',
 				   C.DNI,
-				   C.DIRECCI”N
+				   C.DIRECCI√ìN
 			FROM CLIENTE C 
 			INNER JOIN COMPROBANTE CM ON CM.ID_CLIENTE = C.ID_CLIENTE
 			INNER JOIN FACTURA F ON F.ID_FACTURA = CM.ID_FACTURA
 			INNER JOIN SERVICIO_F_B FB ON FB.ID_FACTURA = F.ID_FACTURA
 			INNER JOIN SERVICIO S ON S.ID_SERVICIO = FB.ID_SERVICIO)
 GO
-SELECT * FROM T_CLIENTE() WHERE NOMBRE_SERVICIO = 'Cuidado mÈdico'
+SELECT * FROM T_CLIENTE() WHERE NOMBRE_SERVICIO = 'Cuidado m√©dico'
 GO
 
 /*
-5. UNÕ LA TABLA CANINO CON LA TABLA RESERVA Y PUSE QUE ME BUSQUE EN LOS CAMPOS
+5. UN√ç LA TABLA CANINO CON LA TABLA RESERVA Y PUSE QUE ME BUSQUE EN LOS CAMPOS
    PRECIO SI TIENE REGISTROS CON PRECIO S/. 110.00
 */
 
@@ -1060,7 +1108,7 @@ AS
 		C.NOMBRE, 
 		C.EDAD, 
 		C.PESO, 
-		C.TAMA—O
+		C.TAMA√ëO
 	FROM CANINO C JOIN RESERVA R ON C.ID_CANINO = R.ID_CANINO)
 GO
 SELECT * FROM T_RESERVA() WHERE PRECIO_SERVICIOS = 110.00
@@ -1068,7 +1116,7 @@ GO
 
 	
 -------------------------------------------------------------------------------------
---FUNCI”N CON VALORES DE LÕNEA
+--FUNCI√ìN CON VALORES DE L√çNEA
 /*
 1.- RETORNAR LAS VACUNAS REGISTRADAS EN LA BBDD 
 */
@@ -1115,12 +1163,12 @@ CREATE FUNCTION DBO.CLIENTES() RETURNS @TABLA TABLE(
 	NOMBRE VARCHAR(20),
 	APELLIDO VARCHAR(20),
 	DNI CHAR(8),
-	DIRECCI”N VARCHAR(40) 
+	DIRECCI√ìN VARCHAR(40) 
 	)
 AS
 	BEGIN
 		INSERT INTO @TABLA SELECT ID_CLIENTE, 
-		NOMBRE, APELLIDO, DNI, DIRECCI”N FROM CLIENTE
+		NOMBRE, APELLIDO, DNI, DIRECCI√ìN FROM CLIENTE
 		RETURN
 	END
 GO
@@ -1129,8 +1177,8 @@ SELECT * FROM DBO.CLIENTES()
 
 -------------------------------------------------------------------------------------
 --VIEWS
---1. MOSTRAR QUE CANINO TIENE DE 4 A M¡S A—OS 
-SELECT        ID_CANINO, NOMBRE, EDAD, PESO, TAMA—O
+--1. MOSTRAR QUE CANINO TIENE DE 4 A M√ÅS A√ëOS 
+SELECT        ID_CANINO, NOMBRE, EDAD, PESO, TAMA√ëO
 FROM            dbo.CANINO WHERE EDAD >= 4
 
 --2. MOSTRAR DE LA TABLA CLIENTE LOS NOMBRES Y APELLIDOS CUYO DNI COMIENZA CON 0
@@ -1138,10 +1186,10 @@ SELECT        ID_CLIENTE, NOMBRE, APELLIDO, DNI
 FROM            dbo.CLIENTE WHERE DNI LIKE '0%'
 
 --3. MOSTRAR DE LA TABLA PET HOTEL LOS NOMBRES DE QUE EMPIEZEN CON P
-SELECT        ID_PET, DIRECCI”N, NOMBRE, TEL…FONO
+SELECT        ID_PET, DIRECCI√ìN, NOMBRE, TEL√âFONO
 FROM            dbo.PET_HOTEL WHERE NOMBRE LIKE 'P%'
 
---4. UNÕ LA TABLA FACTURA Y CLIENTE; DESPU…S DE ESO, FILTR… LAS TABLAS CON EL CAMPO COSTO TOTAL
+--4. UN√ç LA TABLA FACTURA Y CLIENTE; DESPU√âS DE ESO, FILTR√â LAS TABLAS CON EL CAMPO COSTO TOTAL
 --   PARA QUE MUESTRE LOS QUE SON MAYORES O IGUALES A S/. 100.00
 SELECT TOP (100) PERCENT dbo.FACTURA.ID_FACTURA, dbo.SERVICIO.SERVICIO, dbo.FACTURA.COSTO_TOTAL
 FROM   dbo.CLIENTE INNER JOIN
@@ -1152,6 +1200,103 @@ FROM   dbo.CLIENTE INNER JOIN
 WHERE (dbo.FACTURA.COSTO_TOTAL >= 100)
 ORDER BY dbo.FACTURA.COSTO_TOTAL
 
+--5. MOSTRAR EL C√ìDIGO DE LAS RESERVAS CUYOS NOMBRES DE LOS CLIENTES COMIENCEN CON 'E'.
+SELECT dbo.CLIENTE.ID_CLIENTE, dbo.CLIENTE.NOMBRE, dbo.CLIENTE.APELLIDO, dbo.RESERVA.ID_RESERVA
+FROM   dbo.CLIENTE INNER JOIN
+             dbo.RESERVA ON dbo.CLIENTE.ID_CLIENTE = dbo.RESERVA.ID_CLIENTE
+WHERE (dbo.CLIENTE.NOMBRE LIKE 'E%')
 
---ACCEDEMOS A LOS DIAGRAMAS DE BASE DE DATOS CON EL SIGUIENTE C”DIGO:
+--6. MOSTRAR TODOS LOS PERROS CUYO COLOR SEA CREMA.
+SELECT dbo.CANINO.NOMBRE AS [NOMBRE PERRO], dbo.COLOR_CANINO.NOMBRE AS COLOR
+FROM   dbo.CANINO INNER JOIN
+             dbo.COLOR_CANINO ON dbo.CANINO.ID_COLOR = dbo.COLOR_CANINO.ID_COLOR
+WHERE (dbo.COLOR_CANINO.NOMBRE = 'Crema')
+
+--1. MOSTRAR QUE RESERVA SOBRE PASA LOS 100 SOLES
+SELECT        ID_RESERVA, FECHA_INI, FECHA_SAL, PRECIO
+FROM            dbo.RESERVA WHERE PRECIO >100
+
+--2. MOSTRAR LOS RAZAS QUE COMIENCEN CON LA LETRA "B"
+SELECT        ID_RAZA, TIPO_RAZA, DESCRIPCI√ìN
+FROM            dbo.RAZA WHERE TIPO_RAZA LIKE 'B%'
+
+
+-------------------------------------------------------------------------------------
+--UPDATE
+-- 1.
+UPDATE dbo.VACUNA
+SET TIPO_VACUNA = 'distemper'
+WHERE ID_VACUNA = 'V001';
+
+-- 2. 
+UPDATE dbo.CLIENTE
+SET NOMBRE = 'Fabiano', APELLIDO = 'Belladoni'
+WHERE DNI = '42565679';
+
+-- 3.
+UPDATE RESERVA
+SET FECHA_INI = '2022-03-01'
+WHERE ID_RESERVA = 'R001';
+GO
+
+-- 4. 
+UPDATE CLIENTE
+SET NOMBRE = 'Jordy'
+WHERE ID_CLIENTE = 'C001';
+
+-- 5.
+UPDATE RAZA
+SET TIPO_RAZA = 'Border Collie'
+WHERE ID_RAZA = 'R017';
+
+-- 6.
+UPDATE CANINO
+SET NOMBRE = 'Diego'
+WHERE ID_CANINO = 'C007';
+
+-- 7. 
+UPDATE PET_HOTEL
+SET TEL√âFONO = '990032324'
+WHERE ID_PET = 'P009';
+
+-- 8.
+UPDATE CANINO
+SET TAMA√ëO = 'Peque√±o'
+WHERE ID_CANINO = 'C010';
+
+-------------------------------------------------------------------------------------
+--DELETE
+-- 1. 
+DELETE FROM RESERVA
+WHERE ID_RESERVA = 'R001';
+
+-- 2. 
+DELETE FROM COLOR_CANINO
+WHERE ID_COLOR = 'CO007';
+
+-- 3.
+DELETE FROM SERVICIO
+WHERE SERVICIO = 'C√°maras web';
+
+-- 4. 
+DELETE FROM HABITACION_CANINA
+WHERE NRO_HABI = 'H001';
+
+-- 5. 
+DELETE FROM RESERVA
+WHERE ID_RESERVA = 'R001';
+
+-- 6.
+DELETE FROM CANINO 
+WHERE ID_CANINO = 'C007'
+
+-- 7. 
+DELETE FROM HISTORIAL
+WHERE ID_HISTORIAL = 'HI008'
+
+-- 8.
+DELETE FROM CANINO
+WHERE ID_CANINO = 'C010'
+
+--ACCEDEMOS A LOS DIAGRAMAS DE BASE DE DATOS CON EL SIGUIENTE C√ìDIGO:
 ALTER AUTHORIZATION ON DATABASE :: [PET_HOTEL] TO SA
