@@ -15,8 +15,8 @@ import java.sql.SQLException;
  * @author Alberto Arroyo
  */
 public class Conexion {
-    private final String USUARIO = "AngelHer2005";
-    private final String CONTRASEÑA = "angelito2009";
+    private final String USUARIO = "pet_hotel";
+    private final String CONTRASEÑA = "1234";
     private final String URLCONEXION = "jdbc:sqlserver://DESKTOP-STBFGEG\\MSSQL:1433;databaseName=PET_HOTEL;encrypt=true;trustServerCertificate=true;";
     
     private Connection conexion;
