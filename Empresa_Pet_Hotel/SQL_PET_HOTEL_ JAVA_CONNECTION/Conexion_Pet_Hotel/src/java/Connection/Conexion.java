@@ -32,45 +32,46 @@ public class Conexion {
         }
     return conexion;
     }
-    public void ejecutaStatement(String query, Connection conexion, String... columnas) throws SQLException {
+    public StringBuilder ejecutaStatement(String query, Connection conexion, String... columnas) throws SQLException {
+        StringBuilder mensaje = new StringBuilder();
         try {
             stm = conexion.createStatement();
             rs = stm.executeQuery(query);
-            
+                        
             while (rs.next()) {
-                StringBuilder mensaje = new StringBuilder();
                 for (int i = 0; i < columnas.length; i++) {
                     mensaje.append(columnas[i]).append(": ").append(rs.getString(i + 1));
                     if (i < columnas.length - 1) {
-                        mensaje.append(",     ");
+                        mensaje.append("    ");
                     }
                 }
-                System.out.println(mensaje);
+                mensaje.append("\n");
             }
         } catch (SQLException e) {
-            System.out.println("Error: " + e);
+            mensaje.append("Error: " + e);
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    System.out.println("Error: " + e);
+                    mensaje.append("Error: " + e);
                 }
             }
             if (stm != null) {
                 try {
                     stm.close();
                 } catch (SQLException e) {
-                    System.out.println("Error: " + e);
+                    mensaje.append("Error: " + e);
                 }
             }
             if (conexion != null) {
                 try {
                     conexion.close();
                 } catch (SQLException e) {
-                    System.out.println("Error: " + e);
+                    mensaje.append("Error: " + e);
                 }
             }
         }
+        return mensaje;
     }
 }
