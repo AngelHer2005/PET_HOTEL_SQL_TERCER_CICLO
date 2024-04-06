@@ -13,20 +13,27 @@ public class Principal {
         Connection conn = null;
         Conexion conx = new Conexion();
         conn = conx.getConexion();
-        /*
-        En el primer argumento, introduces la consulta sin ningún alias o algúna función que perjudique o modifique
-        cada columna; en el segundo argumento, lo dejas así. En el último argumento, colocas cada nombre de cada columna
-        que sacarás con tu consulta
-        Ejemplo:
-        conx.ejecutaStatement("SELECT H.ID_HISTORIAL,\n" +
-"	   H.DESCRIPCIÓN,\n" +
-"	   R.ID_RESERVA\n" +
-"FROM HISTORIAL H\n" +
-"RIGHT JOIN RESERVA R ON H.ID_RESERVA = R.ID_RESERVA\n" +
-"ORDER BY H.ID_RESERVA DESC", conn, "NÚMERO HISTORIAL", "DESCRIPCIÓN", "NÚMERO RESERVA");
-        */
-        conx.ejecutaStatement("Consulta", conn, "Nombres con una cantidad indefinida de argumentos introducidos según"
-                                              + "tu consulta saque. Los separas con comas.");
+        String consulta = "SELECT C.NOMBRE, C.PESO, R.TIPO_RAZA  \n" +
+                          "FROM CANINO C \n" +
+                          "INNER JOIN RAZA R ON C.ID_RAZA = R.ID_RAZA"; 
+        
+        StringBuilder resultados = conx.ejecutaStatement(consulta, conn, "NOMBRE", "PESO", "RAZA");      
+        String[] opciones = resultados.toString().split("\n");
+ 
+        String opcionSeleccionada = (String) JOptionPane.showInputDialog(
+                null,
+                "Selección de perro:",
+                "Selecciona un perro:",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opciones,
+                opciones[0]);
+        
+        if (opcionSeleccionada != null) {
+            JOptionPane.showMessageDialog(null, opcionSeleccionada);
+        } else {
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna perro.");
+        }
     }
     
 }
