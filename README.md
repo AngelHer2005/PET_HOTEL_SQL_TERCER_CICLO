@@ -3,4 +3,4 @@ Este repositorio es una base de datos construida desde el inicio; es decir, llev
 
 Además de eso, también implementamos conexión con Java, UML y demás documentos de la empresa "Mi Pata Pet Hotel".
 
-![Perro](https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1xw:0.74975xh;center,top&resize=1200:*)
+![Perro Guapo](https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1xw:0.74975xh;center,top&resize=1200:*)
