@@ -15,6 +15,7 @@
                 <li><a href="#Inicio">INICIO</a></li>
                 <li><a href="#Nosotros">NOSOTROS</a></li>
                 <li><a href="#Servicios">SERVICIOS</a></li>
+                <li><a href="#RESERVAS.php">RESERVAS</a></li>
                 <li><a href="#Contacto">CONTACTO</a></li>
                 <li><a href="LOGIN.php">LOGOUT</a></li>
             </ul>
@@ -78,24 +79,25 @@
             </div>
             <div class="contact-form">
                     <div class="text-center"><h1>FORMULARIO</h1></div>
-                    <div class="mb-3">
-                        <label for="nombre">Nombre:&ensp;</label>
-                        <input type="text" id="nombre" name="nombre" required>
-                        <label for="apellido">&ensp;Apellido:&ensp;</label>
-                        <input type="text" id="apellido" name="apellido" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email">Email:&ensp;</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="mensaje">Mensaje:&ensp;</label>
-                        <textarea id="mensaje" name="mensaje" class="form-control h-100" rows="4" required></textarea>
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-success btn-lg">ENVIAR</button>
-                    </div>
-                </form>
+                    <form action="../CONTROLADOR/formulario.php" method="post">
+                        <div class="mb-3">
+                            <label for="nombre">Nombre:&ensp;</label>
+                            <input type="text" id="nombre" name="nombre" required>
+                            <label for="apellido">&ensp;Apellido:&ensp;</label>
+                            <input type="text" id="apellido" name="apellido" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email">Email:&ensp;</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mensaje">Mensaje:&ensp;</label>
+                            <textarea id="mensaje" name="mensaje" class="form-control h-100" rows="4" required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success btn-lg">ENVIAR</button>
+                        </div>
+                    </form>
             </div>
         </div>
     </main>
