@@ -1,0 +1,28 @@
+CREATE DATABASE WEB_PET;
+USE WEB_PET;
+CREATE TABLE Cuentas (
+    IdCuenta INT PRIMARY KEY AUTO_INCREMENT,
+    Usuario VARCHAR(40) NOT NULL,
+    Contraseña VARCHAR(40) NOT NULL
+);
+CREATE TABLE DatosCuenta (
+    IdDatos INT PRIMARY KEY AUTO_INCREMENT,
+    Nombre VARCHAR(30) NOT NULL,
+    dni CHAR(8) NOT NULL,
+    direccion VARCHAR(50) NOT NULL,
+    celular CHAR(9) NOT NULL
+);
+CREATE TABLE Habitaciones (
+    IdHabitacion INT PRIMARY KEY AUTO_INCREMENT,
+    TipoHabitacion VARCHAR(50) NOT NULL,
+    Precio DECIMAL(10, 2) NOT NULL,
+    tipo VARCHAR(10) NOT NULL
+);
+CREATE TABLE DatosH (
+	IdDatos INT NOT NULL ,
+	IdHabitacion INT NOT NULL,
+    FOREIGN KEY(IdHabitacion) REFERENCES Habitaciones(IdHabitacion),
+    FOREIGN KEY(IdDatos) REFERENCES DatosCuenta(IdDatos)
+	);
+
+SELECT * FROM Cuentas

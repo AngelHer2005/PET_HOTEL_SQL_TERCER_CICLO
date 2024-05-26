@@ -1,0 +1,196 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    transition: 0.7s;
+    padding: 30px 20px;
+    z-index: 10;
+}
+header.abajo{
+    background: #fff;
+    padding: 15px 20px;
+}
+header .logo{
+    position: relative;
+    color: #fff;
+    font-weight: bold;
+    font-size: 2em;
+    letter-spacing: 2px;
+    transition: 1.5s;
+    text-decoration: none;
+}
+nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header ul{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header ul li{
+    list-style: none;
+}
+
+header ul li a{
+    position: relative;
+    font-family: helvetica;
+    margin: 0 15px;
+    text-decoration: none;
+    font-size:1.5em;
+    color:cornsilk;
+    letter-spacing: 2px;
+    font-weight: 600;
+    transition: 0.7s;
+}
+
+.Inicio{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: url(https://hollywoof.com.au/wp-content/uploads/2023/01/Pet-Hotel-Image.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+
+.Inicio .Bienvenido{
+    position:absolute;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    top:55%;
+    left: 70%;
+    right: 0%;
+    width: 500px;
+    height: 500px;
+    font-size: 1.8em;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    font-weight: 1000;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+}
+
+.Inicio .Bienvenido span{
+    font-weight: bold;
+    font-size: 2.5em;
+}
+
+
+main{
+    background-color: blanchedalmond;
+}
+
+.Nosotros{
+    background-image: url(https://www.uniclidroid.com/wp-content/uploads/2020/11/Via-Guayabos-Chiky-3.jpg);
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.Nosotros *{
+    position:absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+    color:white;
+    text-shadow: black 12px -24px 20px;
+    font-weight: 800;
+}
+
+.Nosotros span{
+    font-weight: bold;
+    top: 20%;
+    font-size: 4em;
+}
+
+.Servicios{
+    padding-top: 20px;
+}
+
+.Servicios>p{
+    font-size: 3em;
+    font-weight: bold;
+}
+
+.Servicios img{
+    width: 70px;
+    border-radius: 50px;
+}
+.Servicios .ser1, .ser2, .ser3, .ser4{
+    padding-left:20%;
+    padding-right:20%;
+}
+
+.Servicios span{
+    font-size: 2em;
+    font-weight: bold;
+}
+
+hr{
+    border: none;
+    height: 1px;
+    background-color: #ccc; /* Color de la línea */
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1); /* Sombra debajo de la línea */
+    margin: 20px 0;
+    padding: 0 0 0 0;
+}
+
+
+
+.Contacto{
+    padding:40px;
+    display: block;
+    position:relative;
+}
+
+.Contacto .contact-form{
+    position:absolute;
+    top: 10%;
+    left: 40%;
+    font-weight: 700;
+}
+
+.Contacto .contact-form button{
+    left: 55%;
+}
+.nombre{
+    padding-right: 30px;
+}
+
+.social-icons img{
+    width: 70px;
+}
+
+header.abajo .logo,
+header.abajo ul li a{
+    color: #000;
+}
+
+.login{
+    background-color:bisque;
+    padding-top:3%
+}
+
+.loginF{
+    padding-top: 3%;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.loginF div{
+    padding:20px
+}
