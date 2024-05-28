@@ -9,20 +9,19 @@
 </head>
 <body class="login">
     <h1 class="text-center">INGRESA SESIÓN</h1>
-    <div class="loginF text-center">
+    <div class="loginF">
         <form action="../CONTROLADOR/loginC.php" method="POST">
-            <div>
-                <label for="usuario">USUARIO: </label>
-                <input type="text" name="usuario">
+            <div class="mb-3">
+                <label for="usuario" class="form-label">USUARIO:</label>
+                <input type="text" name="usuario" class="form-control">
             </div>
-            <div>
-                <label for="contraseña">CONTRASEÑA:</label>
-                <input type="password" name="contraseña">
+            <div class="mb-3">
+                <label for="contraseña" class="form-label">CONTRASEÑA:</label>
+                <input type="password" name="contraseña" class="form-control">
             </div>
-            <button class="btn btn-success btn-lg" type="submit">INGRESAR</button>
-            <a href="REGISTRO.php" class="btn btn-primary btn-lg">REGISTRARSE</a>
+            <button class="btn btn-success btn-lg w-100 mb-2" type="submit">INGRESAR</button>
+            <a href="REGISTRO.php" class="btn btn-primary btn-lg w-100">REGISTRARSE</a>
         </form>
-        
     </div>
 </body>
 </html>

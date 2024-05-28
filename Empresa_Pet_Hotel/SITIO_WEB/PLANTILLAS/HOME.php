@@ -9,13 +9,13 @@
 </head>
 <body>        
     <header>
-		<a href="#" class="logo">PET HOTEL</a>
+		<a href="#" class="logo text-center">PET HOTEL</a>
         <nav>
             <ul>
                 <li><a href="#Inicio">INICIO</a></li>
                 <li><a href="#Nosotros">NOSOTROS</a></li>
                 <li><a href="#Servicios">SERVICIOS</a></li>
-                <li><a href="#RESERVAS.php">RESERVAS</a></li>
+                <li><a href="RESERVAS.php">RESERVAS</a></li>
                 <li><a href="#Contacto">CONTACTO</a></li>
                 <li><a href="LOGIN.php">LOGOUT</a></li>
             </ul>
@@ -32,10 +32,9 @@
             <a href="RESERVAS.php" style="font-weight:bold;" class="btn btn-danger btn-lg">HAZ TU RESERVA</a>
         </div>
     </div>
-            
         <div class="Nosotros" id="Nosotros">
             <span>SOBRE NOSOTROS</span>
-            <p>En PET HOTEL, entendemos que tu mascota es parte de tu familia. Nuestro compromiso es brindarle a tu compañero peludo un hogar lejos de casa, donde se sienta amado, seguro y feliz.</p>
+            <p>En HOTEL DE CANES, entendemos que tu mascota es parte de tu familia. Nuestro compromiso es brindarle a tu compañero peludo un hogar lejos de casa, donde se sienta amado, seguro y feliz.</p>
         </div>
         <div class="Servicios" id="Servicios">
             <p class="text-center">NUESTROS SERVICIOS</p>
@@ -72,9 +71,9 @@
                 <p>HORARIOS DE ATENCIÓN AL PÚBLICO:</p>
                 <p>De 8:30 am a 5:30 pm</p>
                 <div class="social-icons">
-                    <a href="#"><img src="../IMÁGENES/wsp.png" alt="Facebook"></a>
-                    <a href="#"><img src="../IMÁGENES/gmail.png" alt="Gmail"></a>
-                    <a href="#"><img src="../IMÁGENES/github.png" alt="GitHub"></a>
+                    <a href="https://wa.me/997150226"><img src="../IMÁGENES/wsp.png" alt="Facebook"></a>
+                    <a href="https://www.linkedin.com/in/angelhernanpatricioarroyo/"><img src="https://img.shields.io/badge/LinkedIn-7289DA?style=for-the-badge&logo=linkedin&logoColor=white" alt="Gmail"></a>
+                    <a href="https://github.com/AngelHer2005"><img src="../IMÁGENES/github.png" alt="GitHub"></a>
                 </div>
             </div>
             <div class="contact-form">

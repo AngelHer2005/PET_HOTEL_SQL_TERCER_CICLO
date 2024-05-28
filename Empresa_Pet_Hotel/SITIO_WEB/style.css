@@ -67,16 +67,16 @@ header ul li a{
 .Inicio .Bienvenido{
     position:absolute;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    top:55%;
-    left: 70%;
-    right: 0%;
-    width: 500px;
-    height: 500px;
+    top:56%;
+    left: 75%;
+    right: 50%;
+    width: 600px;
+    height: 470px;
     font-size: 1.8em;
     transform: translate(-50%, -50%);
     color: white;
     text-align: center;
-    font-weight: 1000;
+    font-weight: 800;
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 30px;
 }
@@ -180,17 +180,49 @@ header.abajo ul li a{
     color: #000;
 }
 
-.login{
-    background-color:bisque;
-    padding-top:3%
+.login {
+    background-image: url('../IMÁGENES/fondo-login.avif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgb(1, 0, 0);
 }
 
-.loginF{
-    padding-top: 3%;
-    font-size: 2em;
-    font-weight: bold;
+.login h1 {
+    margin-bottom: 20px; 
 }
 
-.loginF div{
-    padding:20px
+.loginF {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px; 
+    text-align: center;
+}
+.reserva {
+    background-image: url('/IMÁGENES/perros.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.7); 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #444;
 }
